@@ -1,0 +1,5 @@
+ for pid in `ps -aux | grep -i $1 | awk '{ print $2 " " $11   }' | grep -v grep | awk '{ print $2 }'`; do
+ { 
+	 kill -9 $pid;
+ }; done
+

@@ -1,0 +1,3 @@
+alias gvim='mvim'
+alias exif='/usr/local/bin/EXIF.py'
+alias vlc=/Applications/VLC.app/Contents/MacOS/VLC

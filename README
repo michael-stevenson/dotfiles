@@ -1,0 +1,60 @@
+My DOTFILES.  30% homegrown, 70% hijacked from those who got their first.
+
+
+
+
+handle_data_object(DS_Data_Object* object,
+    DS_Query* query, DS_Event event)
+{
+    PropertySet* set = static_cast<PropertySet*>(object);
+    PropertySet* wrapped = PropertySet::wrap(set);
+
+    PropertySet* ds_set = static_cast<PropertySet*>(object);
+    PropertySet* wrapped = PropertySet::wrap(ds_set);
+}
+
+
+
+PropertySet         DS_Data_Object
+    |                   |
+ResourceDefinition      |
+             |          |
+             |          |
+            DSResourceDefinition
+
+
+
+
+DS_Data_Object
+    |
+    |
+PropertySet     <----- close, resource
+    |
+    |
+ServerPropertySet <----- serverclose, serverresource
+
+
+Close* make_close(DS_Client_Session* session,
+    const std::string& instrument)
+{
+    return new Close(session, instrument);
+}
+
+PropertySet* make_close(DS_Server* server,
+    const std::string& instrument)
+{
+    return new ServerClose(server, instrument);
+}
+
+
+Resource* make_resource(DS_Client_Session* session,
+    const std::string& type)
+{
+    return new Resource(session, type);
+}
+
+PropertySet* make_resource(DS_Server* server,
+    const std::string& type)
+{
+    return new ServerResource(server, type);
+}

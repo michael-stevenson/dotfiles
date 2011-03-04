@@ -11,8 +11,8 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 " colors
-"colo desert_modified
-colo 256_xoria
+colo desert_modified
+"colo 256_xoria
 
 " code completion formation
 set completeopt=menu,preview
@@ -40,6 +40,9 @@ set smartindent
 
 " to see what's going on with spaces vs tabs
 set listchars=tab:->,trail:$
+
+" set mapleader to a space
+let g:mapleader=' '
 
 " do filetype detection
 filetype on
