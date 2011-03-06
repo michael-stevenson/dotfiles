@@ -1,5 +1,37 @@
- for pid in `ps -aux | grep -i $1 | awk '{ print $2 " " $11   }' | grep -v grep | awk '{ print $2 }'`; do
- { 
-	 kill -9 $pid;
- }; done
+#!/bin/zsh
 
+verbose=0
+signal="9"
+process_name=$*[$#]
+
+for arg in $@; do
+{
+	case $arg in
+		-v)
+			verbose=1
+			;;
+		-[0-9])
+			# can you believe that zsh arras are one based?
+			signal=$arg[2]
+			;;
+	esac
+}; done
+
+os=$(uname -s)
+
+pids=[]
+
+case $os in
+	Darwin)
+		set -A pids $(ps -Ac | awk 'tolower($5) == tolower("'$process_name'") { print $1 }')
+		;;
+	SunOS|Linux)
+		set -A pids $(ps -Ac | awk 'tolower($6) == tolower("'$process_name'") { print $1 }')
+		;;
+esac
+
+for pid in $pids; do
+{
+	[[ $verbose == 1 ]] && echo $pid
+	kill -$signal $pid
+}; done
