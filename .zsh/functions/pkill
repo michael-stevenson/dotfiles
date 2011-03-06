@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 verbose=0
 signal="9"
 process_name=$*[$#]
