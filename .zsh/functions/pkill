@@ -15,18 +15,8 @@ for arg in $@; do
 	esac
 }; done
 
-os=$(uname -s)
-
 pids=[]
-
-case $os in
-	Darwin)
-		set -A pids $(ps -Ac | awk 'tolower($5) == tolower("'$process_name'") { print $1 }')
-		;;
-	SunOS|Linux)
-		set -A pids $(ps -Ac | awk 'tolower($6) == tolower("'$process_name'") { print $1 }')
-		;;
-esac
+set -A pids $(pgrep ${process_name})
 
 for pid in $pids; do
 {

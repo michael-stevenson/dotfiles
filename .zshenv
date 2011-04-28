@@ -1,8 +1,29 @@
-
 PROMPT=$'%n@%m[%3~]> '
 RPROMPT='%t'
 
-MANPATH=$MANPATH:/opt/local/man
+EDITOR=vi
+VISUAL=vi
 
-PATH=/usr/local/bin:$PATH:/opt/local/bin:/usr/local/mysql/bin:/Users/michael/bin
-FPATH=$FPATH:~/.zsh/functions:~/bin:~/bin/drm
+manpath=( 
+	${manpath} 
+	/opt/local/man 
+	)
+
+path=( 	
+	/opt/local/bin
+	/usr/local/bin
+	${path}
+	/usr/local/mysql/bin
+	~/bin
+)
+
+fpath=(
+	${fpath}
+	~/.zsh/functions
+	~/.zsh/zle-widgets
+	~/bin
+	~/bin/drm
+)
+
+# load site specific configuration
+[[ -r ~/.local.zshenv ]] && echo "sourcing local environment.." && source ~/.local.zshenv
