@@ -1,0 +1,5 @@
+if [[ -n $TMUX ]]; then
+	tmux split-window -v;
+else
+	print "\ntmux not running\n" >&2;
+fi

@@ -1,0 +1,8 @@
+if [[ -n $TMUX ]]; then
+	[[ $KEYS == "J" ]] && tmux resize-pane -D 6
+	[[ $KEYS == "K" ]] && tmux resize-pane -U 6
+	[[ $KEYS == "L" ]] && tmux resize-pane -R 8
+	[[ $KEYS == "H" ]] && tmux resize-pane -L 8
+else
+	print "\ntmux not running\n" >&2;
+fi

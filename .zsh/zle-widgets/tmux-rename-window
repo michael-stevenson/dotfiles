@@ -1,0 +1,16 @@
+if [[ -n $TMUX ]]; then
+	zle vi-insert;
+	declare title
+	print -n "<enter new window title>: "
+	while read -k; do
+		[[ ! ${REPLY} =~ [a-zA-Z_!@#$%-] ]] && break;
+		print -n "${REPLY}"
+		title+=${REPLY}
+	done
+	tmux rename-window "${title}";
+	zle vi-cmd-mode;
+	print -z ""
+	zle .accept-line;
+else
+	print "\ntmux not running\n" >&2;
+fi

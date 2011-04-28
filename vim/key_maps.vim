@@ -13,11 +13,13 @@
 " ---
 set imdisable " not sure why this is necessary - can't get it to work otherwise
 imap <S-Space><S-Space> <ESC>
+imap 22 <ESC>
 
 " shift-space
 " (catch accidental Shift-space hits)
 " ---
 imap <S-Space> <Space>
+imap 2 <Space>
 
 " shift-w
 " (switch splits)

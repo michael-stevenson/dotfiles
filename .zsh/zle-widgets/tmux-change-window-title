@@ -1,0 +1,6 @@
+if [[ -n $TMUX ]]; then
+	vared -c -p "enter title" title
+	tmux rename-window "${title}"
+else
+	print "\ntmux not running\n" >&2;
+fi

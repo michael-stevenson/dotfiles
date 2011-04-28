@@ -1,0 +1,5 @@
+if [[ -n $TMUX ]]; then
+	tmux list-windows;
+else
+	print "\ntmux not running\n" >&2;
+fi
