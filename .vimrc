@@ -75,6 +75,10 @@ if !exists("autocommands_loaded")
 	so ~/.vim/autocommands.vim
 endif
 
+" make it such that <leader>K will open a manpage
+" for the word under the cursor
+runtime! ftplugin/man.vim
+
 " If a directory contains a 'local' rc file, 
 " source it .. 
 if filereadable(".local.vimrc")
