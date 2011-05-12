@@ -4,3 +4,4 @@
 .*.sw?
 .gitconfig
 .local.*
+vim/.netrwhist
