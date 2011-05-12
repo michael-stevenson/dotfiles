@@ -2,3 +2,5 @@
 *.fpo
 *.ii
 .*.sw?
+.gitconfig
+.local.*
