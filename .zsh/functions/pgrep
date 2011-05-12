@@ -6,7 +6,6 @@ os=$(uname -s)
 case $os in
 	Darwin)
 		set -A pids $(ps -Ac | awk 'tolower($5) == tolower("'$process_name'") { print $1 }')
-		set -A pids $(ps -Ac | awk 'x=""; for (i=5;i<=NF;++i) x+=$i; if (tolower($x) == tolower("'$process_name'")) print $x ')
 		;;
 	SunOS|Linux)
 		set -A pids $(ps -Ac | awk 'tolower($6) == tolower("'$process_name'") { print $1 }')

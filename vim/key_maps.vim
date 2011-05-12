@@ -46,3 +46,4 @@ nmap <silent> white :call RemoveTrailingWhitespace()<CR>
 " (type 'tab' to determine tab settings)
 " ---
 nmap <silent> tab :call TestForMixedTabsAndSpaces()<CR>
+
