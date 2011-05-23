@@ -26,4 +26,8 @@ fpath=(
 )
 
 # load site specific configuration
-[[ -r ~/.local.zshenv ]] && echo "sourcing local environment.." && source ~/.local.zshenv
+# only echo if interactive to prevent scp from failing
+if [[ -r ~/.local.zshenv ]]; then
+	[[ -o interactive ]] && echo "sourcing local environment.."
+	source ~/.local.zshenv;
+fi
