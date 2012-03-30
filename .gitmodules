@@ -1,9 +1,12 @@
 [submodule "vim/bundle/bufexplorer"]
 	path = vim/bundle/bufexplorer
-	url = https://github.com/vim-scripts/bufexplorer.zip.git
+	url = http://github.com/vim-scripts/bufexplorer.zip.git
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
-	url = https://github.com/vim-scripts/fugitive.vim.git
+	url = http://github.com/vim-scripts/fugitive.vim.git
 [submodule "vim/bundle/taglist"]
 	path = vim/bundle/taglist
-	url = https://github.com/vim-scripts/taglist.vim.git
+	url = http://github.com/vim-scripts/taglist.vim.git
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
+	url = http://github.com/majutsushi/tagbar.git
