@@ -26,16 +26,9 @@ imap 2 <Space>
 " ---
 nmap <S-w> <C-w>w
 
-" F2
-" (toggle bufexplorer window)
-" ---
-map <F2> \be
-
-" F3
-" (open explorer)
-" ---
+map <F2> :BufExplorer<CR>
 nnoremap <silent> <F3> :Explore<CR>
-
+nnoremap <silent> <F9> :TagbarToggle<CR>
 
 " white
 " (type 'white' to remove white space)

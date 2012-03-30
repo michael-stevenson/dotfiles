@@ -22,4 +22,5 @@ autocmd BufEnter *.abnf set ft=abnf
 autocmd BufWritePost $MYVIMRC so $MYVIMRC
 autocmd BufWritePost .vimrc so $MYVIMRC
 autocmd BufWritePost vimrc so $MYVIMRC
-autocmd BufWritePost .local.vimrc so .local.vimrc
+autocmd BufWritePost .local.vimrc so $MYVIMRC
+autocmd BufWritePost .vim/* so $MYVIMRC

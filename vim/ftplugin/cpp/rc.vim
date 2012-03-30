@@ -1,12 +1,19 @@
-" folding for whole scope blocks
-set foldmethod=expr
-set foldexpr=getline(v:lnum)=~\"^[\ ]*///\"
+" I used to set this to:
+"set foldmethod=expr
+"set foldexpr=getline(v:lnum)=~\"^[\ ]*///\"
+" but recently vim has been complaining that the zf{motion}
+" command will only work with this set to manual or marker,
+" not sure how it ever worked before ..
+set foldmethod=manual
 
 " when writing C code, don't expand tabs to spaces
 set noexpandtab
 
+" make sure that syntax coloring is on
+syntax enable
+
 " fold the current brace block
-nnoremap zz ?{<CR>zfa}
+nnoremap zz /}<CR>%zfa}
 
 " block comments automation
 " bc = block comment from 'a to current line
@@ -27,4 +34,4 @@ nnoremap def :call ExpandWordIntoHeaderGuard()<CR>
 
 " Remove trailing whitespace for cpp files before
 " committing buffer to disk
-autocmd BufWritePre <buffer> call RemoveTrailingWhitespace()
+" autocmd BufWritePre <buffer> call RemoveTrailingWhitespace()
