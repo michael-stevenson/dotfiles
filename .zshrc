@@ -1,6 +1,8 @@
 
-# setup paths
-# fpath=( ~/.zsh/functions $fpath)
+# do not beep in various situations. The one that
+# caused me to turn this on was searching in history
+# without a match being found.  It was really annoying.
+setopt nobeep
 
 # a few general aliases
 alias ll='clear; ls -l'
