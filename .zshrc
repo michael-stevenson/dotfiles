@@ -10,7 +10,7 @@ alias ll='clear; ls -aslh'
 [[ -f /usr/local/bin/EXIF.py ]] && alias exif='/usr/local/bin/EXIF.py'
 
 # macvim
-which mvim > /dev/null && alias gvim='mvim'
+which mvim 2> /dev/null && alias gvim='mvim'
 
 bindkey -v
 bindkey -M viins '  ' vi-cmd-mode
