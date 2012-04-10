@@ -35,3 +35,12 @@ nnoremap def :call ExpandWordIntoHeaderGuard()<CR>
 " Remove trailing whitespace for cpp files before
 " committing buffer to disk
 " autocmd BufWritePre <buffer> call RemoveTrailingWhitespace()
+"
+
+" Shift-n goes to the next tag in the tag stack
+" Shift-m goes to the previous
+nnoremap <S-n> :tn<CR>
+nnoremap <S-m> :tp<CR>
+
+" Ctrl-l brings up the tag list for the word under the cursor
+nnoremap <C-L> :tselect <C-R><C-W><CR>
