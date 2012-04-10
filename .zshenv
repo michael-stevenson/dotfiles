@@ -1,4 +1,4 @@
-PROMPT=$'%n@%m[%3~]> '
+PROMPT='%n@%m[%3~]> '
 RPROMPT='%t'
 
 EDITOR=vi
