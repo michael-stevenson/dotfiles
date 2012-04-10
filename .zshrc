@@ -14,7 +14,7 @@ which mvim > /dev/null && alias gvim='mvim'
 
 bindkey -v
 bindkey -M viins '  ' vi-cmd-mode
-bindkey -M vicmd '?' where-is
+bindkey -M vicmd '?'  vi-history-search-backward
 
 for f in `ls ~/.zsh/functions`; do
 	autoload -U $f;
