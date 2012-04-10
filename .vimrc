@@ -81,6 +81,6 @@ runtime! ftplugin/man.vim
 
 " If a directory contains a 'local' rc file, 
 " source it .. 
-if filereadable(".local.vimrc")
-	so ".local.vimrc"
+if filereadable(fnamemodify("~/.local.vimrc", ":p"))
+	so ~/.local.vimrc
 endif
