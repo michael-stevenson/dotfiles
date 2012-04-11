@@ -5,9 +5,9 @@
 local message=$1
 local timespec=${argv[2,-1]}
 
-if [[ `which growlnotify` > /dev/null ]]; then
+if (( ${+commands[growlnotify]} )); then
 	echo "growlnotify --sticky -m \"$(date +%Y-%h-%m\ %H:%M:%S)\n${message}\" \"REMINDER\"" | at ${timespec};
-elif [[ `which xmessage` > /dev/null ]]; then
+elif (( ${+commands[xmessage]} )); then
 	echo "xmessage \"$(date +%Y-%h-%m\ %H:%M:%S)\n${message}\"" | at ${timespec};
 else
 	echo "don't have a reminder mechanism"
