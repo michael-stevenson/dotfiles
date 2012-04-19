@@ -1,0 +1,5 @@
+filename=$(latest $1)
+if [[ ${#filename} -gt 0 ]]; then
+	tail -f ${filename}
+fi
+return -1

@@ -25,6 +25,11 @@ fpath=(
 	~/bin/drm
 )
 
+typeset -T LATEST_PATH latest_path
+latest_path=(
+	/var/log
+)
+
 # load site specific configuration
 # only echo if interactive to prevent scp from failing
 if [[ -r ~/.local.zshenv ]]; then
