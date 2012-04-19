@@ -20,6 +20,11 @@ for f in `ls ~/.zsh/functions`; do
 	autoload -U $f;
 done
 
+# aliases for some of the functions we just
+# loaded..
+alias taill='tail_latest '
+alias lessl='less_latest '
+
 for f in `ls ~/.zsh/zle-widgets`; do
 	autoload -U $f;
   	zle -N $f;
