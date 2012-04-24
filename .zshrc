@@ -24,6 +24,7 @@ done
 # loaded..
 alias taill='tail_latest '
 alias lessl='less_latest '
+alias grepl='grep_latest '
 
 for f in `ls ~/.zsh/zle-widgets`; do
 	autoload -U $f;
