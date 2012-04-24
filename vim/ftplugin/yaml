@@ -1,0 +1,2 @@
+nnoremap bc o<ESC>:'a,. s/^/#/<CR>
+nnoremap uc mb:'a,'b s/^#//<CR>dd
