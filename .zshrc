@@ -6,6 +6,7 @@ setopt nobeep
 
 # a few general aliases
 alias ll='clear; ls -aslh'
+alias llt='clear; ls -aslhtr'
 
 [[ -f /usr/local/bin/EXIF.py ]] && alias exif='/usr/local/bin/EXIF.py'
 
