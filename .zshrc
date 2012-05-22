@@ -17,8 +17,10 @@ bindkey -v
 bindkey -M viins '  ' vi-cmd-mode
 bindkey -M vicmd '?'  vi-history-search-backward
 
-for f in `ls ~/.zsh/functions`; do
-	autoload -U $f;
+for p in ${fpath}; do
+	for f in `ls ${p}`; do
+		autoload -U $f;
+	done
 done
 
 # aliases for some of the functions we just
