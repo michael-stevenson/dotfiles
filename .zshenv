@@ -21,8 +21,6 @@ fpath=(
 	${fpath}
 	~/.zsh/functions
 	~/.zsh/zle-widgets
-	~/bin
-	~/bin/drm
 )
 
 typeset -T LATEST_PATH latest_path
