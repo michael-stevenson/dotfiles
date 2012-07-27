@@ -15,6 +15,8 @@ path=(
 	${path}
 	/usr/local/mysql/bin
 	~/bin
+	/sbin
+	/bin
 )
 
 fpath=(
