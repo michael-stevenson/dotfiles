@@ -56,7 +56,8 @@ hi WarningMsg	guifg=salmon
 
 " syntax highlighting groups
 " hi Comment	guifg=Wheat4 guibg=bg
-hi Comment	guifg=grey33 guibg=bg gui=italic
+" hi Comment	guifg=grey33 guibg=bg gui=italic
+hi Comment	guifg=#A64B24 guibg=bg gui=italic
 " hi Constant	guifg=#ffa0a0
 hi Constant	guifg=peru guibg=bg
 hi Identifier	guifg=palegreen
