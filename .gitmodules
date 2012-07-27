@@ -13,3 +13,6 @@
 [submodule "vim/bundle/showmarks2"]
 	path = vim/bundle/showmarks2
 	url = http://github.com/vim-scripts/showmarks2.git
+[submodule "vim/bundle/dbext"]
+	path = vim/bundle/dbext
+	url = http://github.com/vim-scripts/dbext.vim
