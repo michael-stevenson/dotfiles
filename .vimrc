@@ -79,6 +79,11 @@ endif
 " for the word under the cursor
 runtime! ftplugin/man.vim
 
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_autoshowtag = 1
+
 " If a directory contains a 'local' rc file, 
 " source it .. 
 if filereadable(fnamemodify("~/.local.vimrc", ":p"))
