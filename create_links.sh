@@ -24,3 +24,5 @@ relink .zsh			 $DOTFILES/.zsh
 relink .gitconfig    $DOTFILES/.gitconfig
 relink .gitignore    $DOTFILES/.gitignore
 
+relink .tools        $DOTFILES/tools
+

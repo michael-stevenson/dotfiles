@@ -17,6 +17,7 @@ path=(
 	~/bin
 	/sbin
 	/bin
+	~/.tools/ack
 )
 
 fpath=(

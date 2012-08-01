@@ -16,3 +16,6 @@
 [submodule "vim/bundle/dbext"]
 	path = vim/bundle/dbext
 	url = http://github.com/vim-scripts/dbext.vim
+[submodule "tools/ack"]
+	path = tools/ack
+	url = http://github.com/petdance/ack.git
