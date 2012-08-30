@@ -27,3 +27,4 @@ relink .gitignore    $DOTFILES/.gitignore
 relink .tools        $DOTFILES/tools
 
 relink .bin			 $DOTFILES/bin
+chmod 700 $DOTFILES/bin/*
