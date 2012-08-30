@@ -12,6 +12,7 @@ manpath=(
 path=( 	
 	/opt/local/bin
 	/usr/local/bin
+	~/.bin
 	${path}
 	/usr/local/mysql/bin
 	~/bin

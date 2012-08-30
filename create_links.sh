@@ -26,3 +26,4 @@ relink .gitignore    $DOTFILES/.gitignore
 
 relink .tools        $DOTFILES/tools
 
+relink .bin			 $DOTFILES/bin
