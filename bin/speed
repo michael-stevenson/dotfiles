@@ -5,5 +5,8 @@ ghz = float(sys.argv[1])
 hz = ghz * 1000 * 1000 * 1000
 seconds_per_clock = 1.0 / hz
 nanos_per_second = 10 ** 9
+micros_per_second = 10 ** 6
 
-print "nanos per clock: ", seconds_per_clock * nanos_per_second
+print "nanos per clock : ", seconds_per_clock * nanos_per_second
+print "clocks per nano : ", 1.0 / (seconds_per_clock * nanos_per_second)
+print "clocks per micro: ", 1.0 / (seconds_per_clock * micros_per_second)

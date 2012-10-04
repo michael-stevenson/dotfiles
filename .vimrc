@@ -27,9 +27,15 @@ set nowrap
 set hlsearch
 
 " Some reasonable defaults
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set noexpandtab
+
+" trying this out. I cant remember the last time that I
+" actually needed to recover from a crashed session. 
+" Probably, I'll end up reverting this right after I get
+" burned ;)  screw-you future me..
+set noswapfile
 
 " show the line numbers
 set number
