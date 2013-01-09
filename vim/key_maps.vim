@@ -25,6 +25,10 @@ imap 2 <Space>
 " (switch splits)
 " ---
 nmap <S-w> <C-w>w
+nmap <S-J> :5winc -<CR>
+nmap <S-K> :5winc +<CR>
+nmap <S-L> :5winc ><CR>
+nmap <S-H> :5winc <<CR>
 
 map <F2> :BufExplorer<CR>
 nnoremap <silent> <F3> :Explore<CR>
