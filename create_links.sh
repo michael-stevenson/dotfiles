@@ -28,3 +28,6 @@ relink .tools        $DOTFILES/tools
 
 relink .bin			 $DOTFILES/bin
 chmod 700 $DOTFILES/bin/*
+
+`which git` config --global init.templatedir $DOTFILES/git/template
+

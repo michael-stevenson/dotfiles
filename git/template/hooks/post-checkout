@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+trap "rm -rf .git/tags.$$" EXIT
+echo "regenerating CTAGS (from .git/hooks/ctags)"
+#ctags -f .git/tags.$$ --tag-relative=yes -R --extra=+q --fields=+afiknsSt --exclude=.git --exclude="*.java" --exclude="*.cs" --exclude="*.js" --exclude="*.py" --exclude="*.sql" --exclude="*.sh" Enterprise/VC
+/usr/bin/ctags -f .git/tags.$$ --tag-relative=yes -R --extra=+q --fields=+afiknsSt --exclude=.git --exclude="*.java" --exclude="*.cs" --exclude="*.js" --exclude="*.py" --exclude="*.sql" --exclude="*.sh"
+mv .git/tags.$$ .git/tags
