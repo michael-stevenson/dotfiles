@@ -43,4 +43,8 @@ nnoremap <S-n> :tn<CR>
 nnoremap <S-m> :tp<CR>
 
 " Ctrl-l brings up the tag list for the word under the cursor
-nnoremap <C-L> :tselect <C-R><C-W><CR>
+" Just found that you can do the same thing with g],
+" or, even better, jump directly if there is only one match or
+" bring up the list if >1 with g<C-]>
+" nnoremap <C-L> :tselect <C-R><C-W><CR>
+nnoremap <C-]> g<C-]>
