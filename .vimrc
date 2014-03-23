@@ -4,6 +4,15 @@
 " turn off vi compatability - enables lots of cool things
 set nocompatible
 
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_seed_identifiers_with_syntax = 1
+
 " turn on pathgen
 " must be called before tiletype
 " detection is turned on!

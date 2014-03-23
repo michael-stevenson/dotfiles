@@ -14,17 +14,24 @@
 set imdisable " not sure why this is necessary - can't get it to work otherwise
 imap <S-Space><S-Space> <ESC>
 imap 22 <ESC>
+imap <M-Space><M-Space> <ESC>
+imap Â <ESC>
 
 " shift-space
 " (catch accidental Shift-space hits)
 " ---
 imap <S-Space> <Space>
 imap 2 <Space>
+imap <M-Space> <Space>
 
 " shift-w
 " (switch splits)
 " ---
 nmap <S-w> <C-w>w
+nnoremap <M-F17>j <C-w>j
+nnoremap <M-F17>h <C-w>h
+nnoremap <M-F17>k <C-w>k
+nnoremap <M-F17>l <C-w>l
 nmap <S-J> :5winc -<CR>
 nmap <S-K> :5winc +<CR>
 nmap <S-L> :5winc ><CR>

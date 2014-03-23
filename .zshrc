@@ -14,7 +14,7 @@ alias llt='clear; ls -aslhtr'
 which mvim 2> /dev/null && alias gvim='mvim'
 
 bindkey -v
-bindkey -M viins '  ' vi-cmd-mode
+bindkey -M viins "M-F17" vi-cmd-mode
 bindkey -M vicmd '?'  vi-history-search-backward
 
 for p in ${fpath}; do
