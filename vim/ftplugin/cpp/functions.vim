@@ -1,3 +1,17 @@
+" Simply toggle editing between a header file and
+" it's associated source file - presumes naming
+" parity betwen the two.
+silent! function! ToggleBetweenHeaderAndSourceFile()
+	update
+	if (expand("%:e") ==? "cpp")
+		find %:t:r.h
+	else
+		find %:t:r.cpp
+	endif
+endfunction
+
+nnoremap <leader>t :call ToggleBetweenHeaderAndSourceFile()<cr>
+
 " Expand the word under the cursor into a 
 " namespace scope..
 " i.e. "blah" ->
