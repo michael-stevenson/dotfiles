@@ -1,0 +1,13 @@
+function git_branches() {
+	branches=($(git for-each-ref --format='%(refname)' refs/heads/ | sed 's|refs/heads/||'))
+	head=$(git rev-parse --abbrev-ref HEAD)
+	for b in $branches; do {
+		desc=$(git config branch.$b.description);
+		if [[ $b == $head ]]; then
+			b="* $b";
+		else
+			b="  $b";
+		fi
+		echo -e "$b : ${desc:=<no description>}";
+	}; done
+}
