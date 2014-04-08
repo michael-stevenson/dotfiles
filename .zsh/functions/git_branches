@@ -8,6 +8,6 @@ function git_branches() {
 		else
 			b="  $b";
 		fi
-		echo -e "$b : ${desc:=<no description>}";
+		echo -e $b ${desc:+: ${desc}};
 	}; done
 }
