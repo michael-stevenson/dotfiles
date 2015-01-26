@@ -29,6 +29,10 @@ nnoremap fc o<ESC>:'a,. s/^/\/\//<ESC>:noh<CR>
 nnoremap ns :call ExpandWordIntoNamespace()<CR>
 vnoremap ns :call ExpandWordIntoNamespace()<CR>
 
+nnoremap cls :call ClassSkeleton()<CR>
+vnoremap cls :call ClassSkeleton()<CR>
+
+
 "so ~/.vim/cpp/functions/guard_header
 nnoremap def :call ExpandWordIntoHeaderGuard()<CR>
 

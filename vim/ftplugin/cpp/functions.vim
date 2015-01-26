@@ -47,6 +47,34 @@ vim.current.buffer[row:row] = [ footer ]
 EOF
 endfunction
 
+function! ClassSkeleton()
+python <<EOF
+import vim
+
+(row, col) = vim.current.window.cursor
+class_name = vim.current.line.rstrip('\n')
+vim.current.line = "class {0}".format(class_name)
+
+# you cannot add newlines into strings in this
+# API - I think it messes with the cursor or
+# something - the way that I've found you can
+# do it safely is to add an array of strings
+# which will become new buffer rows as below:
+
+vim.current.buffer[row:row] = [
+	"{",
+	"	public:",
+	"		explicit {0}();".format(class_name),
+	"		~{0}();".format(class_name),
+	"		{0}( const {0}& ) = delete;".format(class_name),
+	"		{0}& operator=( const {0}& ) = delete;".format(class_name),
+	"		{0}( {0}&& ) = delete;".format(class_name),
+	"		{0}& operator=( {0}&& ) = delete;".format(class_name),
+	"};"
+]
+
+EOF
+endfunction
 
 " Expand the word under the cursor into
 " a C-style Header Guard
