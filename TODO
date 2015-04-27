@@ -1,0 +1,5 @@
+*) Add i3 config
+	*)	pre-requisite: submit path to i3 project for sourcing other config files.
+			Probably not uncommon when it comes to WM config, but mine is very machine
+			specific, so I would like to be able to add the general aspects only to
+			the dotfiles repo and then do local overrides..
