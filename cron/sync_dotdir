@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+cd ${DOTDIR}
+
+git pull
+git push
+
+# zsh function
+run_outstanding_runonce
+

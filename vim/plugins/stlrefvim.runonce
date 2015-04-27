@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+DIR=${DOTDIR}/vim/bundle/stlrefvim
+if [[ ! -d ${DIR} ]]; then
+	git clone http://github.com/vim-scripts/stlrefvim.git ${DIR}
+fi

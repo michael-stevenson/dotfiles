@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+DIR=${DOTDIR}/vim/bundle/vim-signify
+if [[ ! -d ${DIR} ]]; then
+	git clone http://github.com/vim-scripts/vim-signify.git ${DIR}
+fi

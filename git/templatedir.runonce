@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+env git config --global init.templatedir ${DOTDIR}/git/template

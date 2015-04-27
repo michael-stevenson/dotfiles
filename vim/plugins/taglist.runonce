@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+DIR=${DOTDIR}/vim/bundle/taglist
+if [[ ! -d ${DIR} ]]; then
+	git clone http://github.com/vim-scripts/taglist.vim.git ${DIR}
+fi

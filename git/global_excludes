@@ -1,7 +1,0 @@
-*.o
-*.fpo
-*.ii
-.*.sw?
-.gitconfig
-.local.*
-vim/.netrwhist

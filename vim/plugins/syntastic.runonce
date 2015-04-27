@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+DIR=${DOTDIR}/vim/bundle/syntastic
+if [[ ! -d ${DIR} ]]; then
+	git clone http://github.com/scrooloose/syntastic.git ${DIR}
+fi
+# TODO: still need to have this actually build the syntax checkers that I care about

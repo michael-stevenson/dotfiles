@@ -13,9 +13,10 @@ autocmd BufEnter * cd %:p:h
 " resistance, I'm just man-handling it here .. 
 autocmd BufEnter *.[CH] setf cpp
 
-" Set filetype for BNF files
 autocmd BufEnter *.bnf set ft=ebnf
 autocmd BufEnter *.abnf set ft=abnf
+autocmd BufEnter *.zshrc set ft=zsh
+autocmd BufEnter *.zshenv set ft=zsh
 
 " source vimrc and local.vimrc after modifying
 " them .. so that changes take effect immediately

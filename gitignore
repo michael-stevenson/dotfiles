@@ -1,8 +1,0 @@
-*.swp
-.*.swp
-doc/tags
-vim/.netrwhist
-**/*.sw?
-**/.*.sw?
-.local.zshrc
-.local.zshenv

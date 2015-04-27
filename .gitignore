@@ -1,0 +1,7 @@
+zsh/.zcompdump
+zsh/.zshrc
+.gitconfig
+vim/.netrwhist
+.runonce
+vim/bundle/*
+vim/autoload/pathogen.vim

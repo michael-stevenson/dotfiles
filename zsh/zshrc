@@ -1,0 +1,29 @@
+setopt null_glob
+
+source_files() {
+	if [[ -d ${2} ]]; then
+		typeset -U files
+		files=(${2}/**/*.${1})
+		for file in ${files}
+		do
+			[[ -n ${ZSH_VERBOSE_SOURCE} ]] && echo "sourcing $file"
+			source ${file}
+		done
+	fi
+}
+
+# load all of the the .zshrc files in both
+# DOTDIR and then LOCALDOTDIR
+source_files zshrc ${DOTDIR}
+source_files zshrc ${LOCALDOTDIR}
+
+autoload -U compinit
+compinit
+
+# load all of the the .zshcomp files in both
+# DOTDIR and then LOCALDOTDIR - these are for
+# enhancing the completion system
+source_files zshcomp ${DOTDIR}
+source_files zshcomp ${LOCALDOTDIR}
+
+source ${ZDOTDIR}/runonce.zshrc
