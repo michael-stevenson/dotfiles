@@ -80,3 +80,4 @@ zsh -d -f -i -c "
 	source $ZDOTDIR/runonce.zshrc;
 	run_outstanding_runonce
 "
+exec zsh
