@@ -4,3 +4,4 @@ if [[ ! -d ${DIR} ]]; then
 	git clone http://github.com/tpope/vim-pathogen ${DIR}
 fi
 ln -sf ${DIR}/autoload/pathogen.vim ${DOTDIR}/vim/autoload/pathogen.vim
+echo "${DOTDIR}/vim/autoload/pathogen.vim" >> ${DOTDIR}/.gitignore
