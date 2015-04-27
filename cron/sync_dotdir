@@ -4,6 +4,6 @@ cd ${DOTDIR}
 git pull
 git push
 
-# zsh function
+source ${ZDOTDIR}/runonce.zshrc
 run_outstanding_runonce
 
