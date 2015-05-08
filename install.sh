@@ -32,8 +32,8 @@ mkdir -p ${LOCALDOTDIR}
 # which trampolines over to the real thing in $DOTDIR
 echo "setting up ZSH"
 echo "
-DOTDIR=$DOTDIR
-LOCALDOTDIR=$LOCALDOTDIR
+export DOTDIR=$DOTDIR
+export LOCALDOTDIR=$LOCALDOTDIR
 ZDOTDIR=\$DOTDIR/zsh
 source \$ZDOTDIR/zshenv
 " > $HOME/.zshenv
