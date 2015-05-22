@@ -5,3 +5,5 @@ vim/.netrwhist
 .runonce
 vim/bundle/*
 vim/autoload/pathogen.vim
+/home/michael/.dot/vim/autoload/pathogen.vim
+.gitignore
