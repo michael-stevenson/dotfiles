@@ -1,2 +1,3 @@
 #!/usr/bin/env zsh
+runonce_requires git
 git config --global init.templatedir ${DOTDIR}/git/template
