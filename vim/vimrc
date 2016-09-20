@@ -97,6 +97,7 @@ let g:tagbar_autoshowtag = 1
 
 " If a directory contains a 'local' rc file, 
 " source it .. 
-if filereadable(fnamemodify("~/.local.vimrc", ":p"))
-	so ~/.local.vimrc
+let lrc = expand($LOCALDOTDIR) . "/vim/vimrc"
+if filereadable(lrc)
+	source $LOCALDOTDIR/vim/vimrc
 endif

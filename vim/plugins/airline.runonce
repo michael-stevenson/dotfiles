@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+DIR=${DOTDIR}/vim/bundle/vim-airline
+if [[ ! -d ${DIR} ]]; then
+ 	git clone https://github.com/vim-airline/vim-airline ${DIR}
+fi
