@@ -56,6 +56,9 @@ set listchars=tab:->,trail:$
 " bar all of the time..
 set laststatus=2
 
+" airline mods
+let g:airline#extensions#hunks#enabled = 0
+
 " set mapleader to a space
 let g:mapleader=' '
 
