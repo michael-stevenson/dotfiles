@@ -52,6 +52,10 @@ set smartindent
 " to see what's going on with spaces vs tabs
 set listchars=tab:->,trail:$
 
+" now that we have airline, turn on the status
+" bar all of the time..
+set laststatus=2
+
 " set mapleader to a space
 let g:mapleader=' '
 
