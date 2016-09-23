@@ -43,7 +43,7 @@ set noexpandtab
 set noswapfile
 
 " show the line numbers
-set number
+set relativenumber number
 
 " can't think of a reason to make this 
 " language specific..
