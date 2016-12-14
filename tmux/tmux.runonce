@@ -1,0 +1,5 @@
+# because the master tmux.conf, here in .dot
+# sources the local one, and tmux barks if it
+# doesn't exist
+[ ! -f "$LOCALDOTDIR/tmux.conf" ] &&
+	echo "# put local tmux configuration to override global configuration here" >> $LOCALDOTDIR/tmux.conf
