@@ -8,3 +8,4 @@ vim/autoload/pathogen.vim
 /home/michael/.dot/vim/autoload/pathogen.vim
 .gitignore
 powerline
+/home/michael/.dot/vim/autoload/pathogen.vim
