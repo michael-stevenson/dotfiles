@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 COMPILER="/usr/lib/llvm/5/bin/clang++"
-SWITCHES=(-x c++ -std=c++17 -O3)
+SWITCHES=(-x c++ -std=c++17 -O3 -fcolor-diagnostics)
 
 TEMP=`mktemp`
 if [ $? -ne 0 ]; then
