@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+SOURCE=${1}
+shift 1
+ARGS=(${*})
+
 COMPILER="/usr/lib/llvm/5/bin/clang++"
 SWITCHES=(-x c++ -std=c++17 -O3 -fcolor-diagnostics)
 
@@ -11,15 +15,15 @@ fi
 trap "rm $TEMP" EXIT
 
 echo -n "//" >> $TEMP
-cat $1 >> $TEMP
+cat $SOURCE >> $TEMP
 
 set -o pipefail
 executable="${TEMP}.cppbang"
-$COMPILER $SWITCHES -o ${executable} $TEMP |& sed s:$TEMP:$1:g
+$COMPILER $SWITCHES -o ${executable} $TEMP |& sed s:$TEMP:$SOURCE:g
 
 if [ $? -ne 0 ]; then
 	exit
 fi
 
 trap "rm $TEMP; rm $executable" EXIT
-exec ${executable}
+exec ${executable} ${ARGS}
