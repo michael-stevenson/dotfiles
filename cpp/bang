@@ -4,6 +4,12 @@ SOURCE=${1}
 shift 1
 ARGS=(${*})
 
+MAYBE_DEBUGGER=""
+if [[ ${ARGS[1]} == "--debug" ]]; then
+	MAYBE_DEBUGGER=("/usr/bin/gdb" "-q" "-ex" "start" "--args" )
+	ARGS=${ARGS[2,-1]}
+fi
+
 COMPILER="/usr/lib/llvm/5/bin/clang++"
 SWITCHES=(-x c++ -std=c++17 -O3 -fcolor-diagnostics)
 
@@ -26,4 +32,4 @@ if [ $? -ne 0 ]; then
 fi
 
 trap "rm $TEMP; rm $executable" EXIT
-exec ${executable} ${ARGS}
+exec ${MAYBE_DEBUGGER} ${executable} ${ARGS}
