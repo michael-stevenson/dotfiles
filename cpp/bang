@@ -4,7 +4,7 @@ SOURCE=${1}
 shift 1
 ARGS=(${*})
 
-MAYBE_DEBUGGER=""
+MAYBE_DEBUGGER=()
 if [[ ${ARGS[1]} == "--debug" ]]; then
 	MAYBE_DEBUGGER=("/usr/bin/gdb" "-q" "-ex" "start" "--args" )
 	ARGS=${ARGS[2,-1]}
