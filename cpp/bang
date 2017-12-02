@@ -23,9 +23,11 @@ trap "rm $TEMP" EXIT
 echo -n "//" >> $TEMP
 cat $SOURCE >> $TEMP
 
+libs=($(grep "//link:" $SOURCE | awk '{print $2}' | sed s/lib/-l/g ))
+
 set -o pipefail
 executable="${TEMP}.cppbang"
-$COMPILER $SWITCHES -o ${executable} $TEMP |& sed s:$TEMP:$SOURCE:g
+$COMPILER $SWITCHES ${libs} -o ${executable} $TEMP |& sed s:$TEMP:$SOURCE:g
 
 if [ $? -ne 0 ]; then
 	exit
