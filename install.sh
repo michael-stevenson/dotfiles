@@ -36,17 +36,6 @@ export DOTDIR=$DOTDIR
 export LOCALDOTDIR=$LOCALDOTDIR
 ZDOTDIR=\$DOTDIR/zsh
 
-# These dot files are intended to be fairly platform agnostic
-# (i.e. we may be running on one of various linux distributions,
-# BSDs, etc.).  So, rather than attempt to *install* dependencies,
-# we just warn about them and allow the user (myself) to install.
-# This function is meant to be used at the top of a runonce script.
-runonce_requires() {
-	[[ -x $(which ${1} 2>/dev/null) ]] && return 0
-	echo "missing DOT requirement: ${1}"
-	exit 127
-}
-
 source \$ZDOTDIR/zshenv
 " > $HOME/.zshenv
 
