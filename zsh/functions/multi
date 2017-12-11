@@ -1,0 +1,15 @@
+cmd=$1
+shift
+
+tmux send-keys -t 0 "$cmd ${@[1]}"
+for ((pane = 1; pane < ${#@[@]}; pane++)); do
+	tmux splitw -h
+	tmux send-keys -t $pane "$cmd ${@[pane+1]}"
+	tmux select-layout tiled > /dev/null
+done
+
+tmux set-window-option synchronize-panes on > /dev/null
+tmux set-window-option pane-active-border-style fg=red > /dev/null
+tmux set-window-option pane-border-style fg=yellow > /dev/null
+
+tmux send-keys Enter
