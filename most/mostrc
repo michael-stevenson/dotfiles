@@ -6,5 +6,7 @@ setkey "exit" ":q"
 setkey "edit" "v"
 setkey "bob" "g"
 setkey "eob" "G"
+setkey "page_down" "^F"
+setkey "page_up" "^B"
 
 color status gray gray
