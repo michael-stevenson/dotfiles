@@ -1,2 +1,10 @@
+unsetkey ":"
+
 setkey "up" "k"
 setkey "down" "j"
+setkey "exit" ":q"
+setkey "edit" "v"
+setkey "bob" "g"
+setkey "eob" "G"
+
+color status gray gray
