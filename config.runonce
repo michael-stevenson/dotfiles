@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
-[[ $DOTDIR == "$HOME/.config ]] && exit 0
+[[ $DOTDIR == "$HOME/.config" ]] && exit 0
 ln -sf $DOTDIR $HOME/.config
