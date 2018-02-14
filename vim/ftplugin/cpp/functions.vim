@@ -4,7 +4,11 @@
 silent! function! ToggleBetweenHeaderAndSourceFile()
 	update
 	if (expand("%:e") ==? "cpp")
-		find %:t:r.h
+		if (filereadable(expand("%:t:r.h")))
+			find %:t:r.h
+		else
+			find %:t:r.hpp
+		endif
 	else
 		find %:t:r.cpp
 	endif
