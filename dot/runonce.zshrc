@@ -27,7 +27,7 @@ run_outstanding_runonce() {
 }
 
 runonce_requires() {
-	[[ -x ${1} ]] && return 0
+	[[ -x $(which $1) ]] && return 0
 	echo "missing DOT requirement: ${1}"
 	exit 127
 }

@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+# setup cron to automatically sync the dotfiles
+runonce_requires crontab
+
+tmp_crontab=$(mktemp)
+trap "rm $tmp_crontab" EXIT
+
+crontab -l 2>&1 >$tmp_crontab
+cat <<-EOC >>$tmp_crontab
+	# synchronize dot file changes nightly with
+	# repository - this entry added by the install
+	# script of very repository doing the syncing.. DOTDIR
+	0 0 * * * $DOTDIR/cron/sync_dotdir
+EOC
+
+cat $tmp_crontab | crontab -

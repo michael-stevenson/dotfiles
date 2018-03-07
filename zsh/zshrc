@@ -26,5 +26,5 @@ compinit
 source_files zshcomp ${DOTDIR}
 source_files zshcomp ${LOCALDOTDIR}
 
-source ${ZDOTDIR}/runonce.zshrc
+source ${DOTDIR}/dot/runonce.zshrc
 run_outstanding_runonce
