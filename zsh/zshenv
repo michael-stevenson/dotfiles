@@ -1,33 +1,4 @@
-DOTCONFIG=${HOME}/.config
-
-# You should set "ZSH_VERBOSE_SOURCE" env. var to
-# make sure that files are being sourced as you
-# expect (or to inspect the order)
-
 setopt null_glob
-source_environment_files() {
-	if [[ -d ${1} ]]; then
-		typeset -U files
-		files=(${1}/**/*.zshenv)
-		for file in ${files}
-		do
-			[[ -n ${ZSH_VERBOSE_SOURCE} ]] && echo "sourcing $file"
-			source ${file}
-		done
-	fi
-}
-
-source_environment_files ${DOTDIR}
-source_environment_files ${LOCALDOTDIR}
-
-#typeset -T LATEST_PATH latest_path
-#latest_path=(
-	#/var/log
-#)
-
-# load site specific configuration
-# only echo if interactive to prevent scp from failing
-#if [[ -r ~/.local.zshenv ]]; then
-	#[[ -o interactive ]] && echo "sourcing local environment.."
-	#source ~/.local.zshenv;
-#fi
+source $DOTDIR/dot/recursive_source.zsh
+recursive_source ${DOTDIR} zshenv
+recursive_source ${LOCALDOTDIR} zshenv

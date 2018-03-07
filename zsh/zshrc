@@ -1,30 +1,15 @@
 setopt null_glob
 
-source_files() {
-	if [[ -d ${2} ]]; then
-		typeset -U files
-		files=(${2}/**/*.${1})
-		for file in ${files}
-		do
-			[[ -n ${ZSH_VERBOSE_SOURCE} ]] && echo "sourcing $file"
-			source ${file}
-		done
-	fi
-}
+source $DOTDIR/dot/recursive_source.sh
 
-# load all of the the .zshrc files in both
-# DOTDIR and then LOCALDOTDIR
-source_files zshrc ${DOTDIR}
-source_files zshrc ${LOCALDOTDIR}
+recursive_source $DOTDIR zshrc
+recursive_source $LOCALDOTDIR zshrc
 
 autoload -U compinit
 compinit
 
-# load all of the the .zshcomp files in both
-# DOTDIR and then LOCALDOTDIR - these are for
-# enhancing the completion system
-source_files zshcomp ${DOTDIR}
-source_files zshcomp ${LOCALDOTDIR}
+recursive_source $DOTDIR zshcomp
+recursive_source $LOCALDOTDIR zshcomp
 
 source ${DOTDIR}/dot/runonce.zshrc
 run_outstanding_runonce
