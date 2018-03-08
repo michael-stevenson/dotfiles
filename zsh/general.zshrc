@@ -8,12 +8,13 @@ bindkey -M viins "M-F17" vi-cmd-mode
 bindkey -M vicmd '?' vi-history-search-backward
 
 for p in ${fpath}; do
+	[[ ! -d ${p} ]] && continue
 	for f in `ls ${p}`; do
 		autoload -U $f;
 	done
 done
 
-for f in `ls ${ZDOTDIR}/zle-widgets`; do
+for f in `ls ${DOTDIR}/zsh/zle-widgets`; do
 	autoload -U $f;
   	zle -N $f;
 done
