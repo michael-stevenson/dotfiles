@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+set -e
+umask g-w,o-w
+git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $LOCALDOTDIR/zsh/ohmyzsh
+cat <<-EORC >>$LOCALDOTDIR/zsh/ohmyzsh.zshrc
+	export ZSH=$LOCALDOTDIR/zsh/ohmyzsh
+	ZSH_THEME="robbyrussell"
+	plugins=(git)
+	source $LOCALDOTDIR/zsh/ohmyzsh/oh-my-zsh.sh
+EORC
