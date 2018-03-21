@@ -1,6 +1,6 @@
 fpath=(
 	${fpath}
-	$ZDOTDIR/functions
-	$ZDOTDIR/zle-widgets
+	$DOTDIR/zsh/functions
+	$DOTDIR/zsh/zle-widgets
 )
 

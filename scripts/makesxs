@@ -1,0 +1,73 @@
+#!/bin/sh
+
+cleanuptest="0 -eq 0"
+extractdircmd="mktemp -d /tmp/selfextract.XXXXXX"
+compressioncmd="gzip"
+extractcmd="tar xz"
+
+for arg do
+	shift
+	[ "$arg" = "--no-cleanup" ] && cleanuptest="1 -eq 0" && continue
+	[ "$arg" = "--no-failure-cleanup" ] && cleanuptest="\$retcode -eq 0" && continue
+	[ "$arg" = "--local-extract" ] && extractdircmd="pwd" && continue
+	[ "$arg" = "--no-compression" ] && compressioncmd="touch" && extractcmd="tar x" && continue
+  set -- "$@" "$arg"
+done
+
+SCR=$1
+shift
+SXS=${SCR%.*}.sxs
+
+decompress="
+#!/bin/sh\n
+#echo 'Decompressing..'\n
+extractonly=0\n
+for arg do\n
+	shift\n
+	[ \"\$arg\" = \"--extract\" ] && extractonly=1 && continue\n
+  set -- \"\$@\" \"\$arg\"\n
+done\n
+export EXTRACTDIR=\`$extractdircmd\`\n
+ARCHIVE=\`awk '/^ __ARCHIVE_BELOW__/ {print NR +1; exit 0; }' \$0\`\n
+tail -n+\$ARCHIVE \$0 | $extractcmd -C \$EXTRACTDIR\n
+BSXDIR=\`pwd\`\n
+export BSXDIR\n
+cd \$EXTRACTDIR\n
+[ \$extractonly -eq 1 ] && echo \$EXTRACTDIR && exit 0\n
+chmod u+x ./$SCR\n
+./$SCR \$*\n
+retcode=\$?\n
+cd \$BSXDIR\n
+[ $cleanuptest ] && rm -rf \$EXTRACTDIR\n
+exit \$retcode\n
+__ARCHIVE_BELOW__"
+
+echo "Collecting..."
+tar --recursion -cf payload.tar $SCR $*
+
+if [ -e "payload.tar" ]; then
+	$compressioncmd payload.tar
+	#gzip payload.tar
+
+	if [ -e "payload.tar.gz" ]
+ 	then
+		echo $decompress | cat - payload.tar.gz > $SXS
+		rm payload.tar.gz
+		chmod u+x $SXS
+	elif [ -e "payload.tar" ]
+	then
+		echo $decompress | cat - payload.tar > $SXS
+		rm payload.tar
+		chmod u+x $SXS
+	else
+		echo "payload.tar.gz. does not exist"
+		exit 1
+  fi
+
+else
+	echo "payload.tar does not exist"
+	exit 1
+fi
+
+echo "$SXS created"
+exit 0

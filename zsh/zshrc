@@ -1,6 +1,6 @@
 setopt null_glob
 
-source $DOTDIR/dot/recursive_source.sh
+source $DOTDIR/dot/recursive_source.zsh
 
 recursive_source $DOTDIR zshrc
 recursive_source $LOCALDOTDIR zshrc
