@@ -13,3 +13,5 @@ recursive_source $LOCALDOTDIR zshcomp
 
 source ${DOTDIR}/dot/runonce.zshrc
 run_outstanding_runonce
+
+[ -n "$STARTUP_COMMANDS" ] && eval "$STARTUP_COMMANDS"
