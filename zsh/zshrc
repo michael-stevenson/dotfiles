@@ -1,5 +1,12 @@
 setopt null_glob
 
+# this causes these variables to only include
+# unique elements, thus, adding the same thing
+# to either path over and over (as in subshells)
+# won't cause them to become unwieldy.
+typeset -U path PATH
+typeset -U fpath FPATH
+
 source $DOTDIR/dot/recursive_source.zsh
 
 recursive_source $DOTDIR zshrc
