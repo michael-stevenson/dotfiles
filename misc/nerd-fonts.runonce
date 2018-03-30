@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+curl -O "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack Regular Nerd Font Complete Mono.ttf"
