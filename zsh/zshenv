@@ -2,13 +2,15 @@ setopt null_glob
 
 typeset -U fpath FPATH
 
-default_funcs="$DOTDIR/zsh/functions"
-fpath+=($default_funcs)
-
-funcs=($default_funcs/*)
-for f in ${funcs[@]}
+func_dirs=($DOTDIR/zsh/functions $LOCALDOTDIR/zsh/functions)
+for dir in ${func_dirs[@]}
 do
-	autoload ${f:t}
+	fpath+=($dir)
+	funcs=($dir/*)
+	for func in ${funcs[@]}
+	do
+		autoload ${func:t}
+	done
 done
 
 recursive_source ${DOTDIR} zshenv
