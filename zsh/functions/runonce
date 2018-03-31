@@ -4,12 +4,11 @@
 # having to modify the actual file somehow (or deleting
 # it) - thus avoiding inadvertently poisoning git with
 # unintended changes.
-[[ -o interactive ]] && echo "---------> $1"
 $(chmod u+x $1)
-[[ -x $1 ]] && ${1}
-if [[ $? -eq 0 ]]; then
-	$(echo $file >> $DOTDIR/.runonce)
+eval "${1}"
+result=$?
+if [[ $result -eq 0 ]]; then
+	$(echo $file >> $LOCALDOTDIR/.runonce)
 else
-	[[ -o interactive ]] && echo "failed with $?; will be reattempted later"
+	[[ -o interactive ]] && echo "runonce: $1 .. [$result]"
 fi
-[[ -o interactive ]] && echo "<--------- $1"
