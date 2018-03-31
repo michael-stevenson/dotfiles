@@ -1,0 +1,7 @@
+typeset -U files
+files=($(ls $DOTDIR/**/*.runonce))
+fin=($(cat $DOTDIR/.runonce))
+for file in $files
+do
+	[[ ${fin[(i)$file]} -gt ${#fin} ]] && runonce $file
+done

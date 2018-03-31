@@ -7,8 +7,6 @@ setopt null_glob
 typeset -U path PATH
 typeset -U fpath FPATH
 
-source $DOTDIR/dot/recursive_source.zsh
-
 recursive_source $DOTDIR zshrc
 recursive_source $LOCALDOTDIR zshrc
 
@@ -18,7 +16,6 @@ compinit
 recursive_source $DOTDIR zshcomp
 recursive_source $LOCALDOTDIR zshcomp
 
-source ${DOTDIR}/dot/runonce.zshrc
 run_outstanding_runonce
 
 [ -n "$STARTUP_COMMANDS" ] && eval "$STARTUP_COMMANDS" && unset STARTUP_COMMANDS
