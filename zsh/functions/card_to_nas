@@ -1,5 +1,0 @@
-scp -p ./PRIVATE/AVCHD/BDMV/*.MTS nas:/v1rz/backup/phones/michael/Camera
-scp -p ./AVF_INFO/*.BNP nas:/v1rz/backup/phones/michael/Camera
-scp -p ./AVF_INFO/*.INP nas:/v1rz/backup/phones/michael/Camera
-scp -p ./DCIM/100MSDCF/*.JPG nas:/v1rz/backup/phones/michael/Camera
-
