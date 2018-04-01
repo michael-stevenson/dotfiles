@@ -1,6 +1,8 @@
 setopt null_glob
 
+typeset -U path PATH
 typeset -U fpath FPATH
+typeset -U manpath MANPATH
 
 func_dirs=($DOTDIR/zsh/functions $LOCALDOTDIR/zsh/functions)
 for dir in ${func_dirs[@]}
