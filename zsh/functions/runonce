@@ -8,7 +8,7 @@ $(chmod u+x $1)
 eval "${1}"
 result=$?
 if [[ $result -eq 0 ]]; then
-	$(echo $file >> $LOCALDOTDIR/.runonce)
-else
-	[[ -o interactive ]] && echo "runonce: $1 .. [$result]"
+	echo $file >> $LOCALDOTDIR/.runonce
 fi
+
+[ -n "$DOTDEBUG" ] && echo "runonce $1 .. [$result]"

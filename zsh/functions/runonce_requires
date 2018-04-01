@@ -1,4 +1,4 @@
 if [ ! -x "$(which $1)" ]; then
 	echo "missing DOT requirement: ${1}"
-	return 127
+	exit 127
 fi

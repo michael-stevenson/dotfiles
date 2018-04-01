@@ -26,7 +26,7 @@ ln -sf $DOTDIR/zsh/zshrc $HOME/.zshrc
 # runonce scripts have already been run. The actual
 # running of these is handled by the zsh startup
 # scripts - which needs to be reconsidered.
-touch $DOTDIR/.runonce
+touch $LOCALDOTDIR/.runonce
 
 # launch ZSH one, first time without any of the
 # startup files - this allows us to source and

@@ -8,5 +8,6 @@ local suffix=$2
 local -U files=($dir/**/*.$suffix)
 for file in ${files}
 do
+	[ -n "$DOTDEBUG" ] && echo "sourcing: $file"
 	source $file
 done
