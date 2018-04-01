@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+set -e
+git clone https://github.com/jeaye/stdman.git $LOCALDOTDIR/cpp/stdman.git
+pushd $LOCALDOTDIR/cpp/stdman.git 2>/dev/null
+	./configure --mandir=$LOCALDOTDIR/cpp/stdman/man
+	make install
+popd 2>/dev/null
