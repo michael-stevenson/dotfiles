@@ -19,8 +19,9 @@ cat <<-EOENV >$HOME/.zshenv
 	source $DOTDIR/zsh/zshenv
 EOENV
 
-ln -sf $DOTDIR/vim/vimrc $HOME/.vim
-ln -sf $DOTDIR/zsh/zshrc $HOME/.zshrc
+ln -sf $DOTDIR/vim/vimrc  $HOME/.vim
+ln -sf $DOTDIR/zsh/zshenv $HOME/zsh/.zshenv
+ln -sf $DOTDIR/zsh/zshrc  $HOME/zsh/.zshrc
 
 # create the file which will be used to track which
 # runonce scripts have already been run. The actual
