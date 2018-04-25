@@ -22,8 +22,6 @@ set t_8b=[48;2;%lu;%lu;%lum
 colo desert_modified
 "colo 256_xoria
 
-set termguicolors
-
 " code completion formation
 set completeopt=menu,preview
 
