@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-exec $GIT_DIR/hooks/ctags
+[ -n $AGGRESSIVE_CTAGS ] && exec $GIT_DIR/scripts/ctags
