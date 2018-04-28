@@ -1,0 +1,3 @@
+rm -rf $DOTDIR/vim/bundle/fugitive
+rm -rf $DOTDIR/vim/bundle/syntastic
+rm -rf $DOTDIR/vim/bundle/vim-airline

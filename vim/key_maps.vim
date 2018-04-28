@@ -12,17 +12,13 @@
 " (remap to ESC)
 " ---
 set imdisable " not sure why this is necessary - can't get it to work otherwise
-imap <S-Space><S-Space> <ESC>
-imap 22 <ESC>
-imap <M-F17><M-F17> <ESC>
+imap <M-F12><M-F12> <ESC>
 " catch early release of the modifier key
-imap <M-F17><space> <ESC>
+imap <M-F12><space> <ESC>
 
 " shift-space
 " (catch accidental Shift-space hits)
 " ---
-imap <S-Space> <Space>
-imap 2 <Space>
 imap <M-Space> <Space>
 
 " shift-w
