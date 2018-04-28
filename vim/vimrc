@@ -22,8 +22,6 @@ set t_8b=[48;2;%lu;%lu;%lum
 colo desert_modified
 "colo 256_xoria
 
-set termguicolors
-
 " code completion formation
 set completeopt=menu,preview
 
@@ -97,6 +95,9 @@ if !exists("autocommands_loaded")
 	let autocommands_loaded = 1
 	so ~/.vim/autocommands.vim
 endif
+
+set runtimepath+=$DOTDIR/vim
+set runtimepath+=$LOCALDOTDIR/vim
 
 " make it such that <leader>K will open a manpage
 " for the word under the cursor

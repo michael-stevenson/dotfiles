@@ -1,5 +1,9 @@
 
 setopt nobeep
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_silent
+setopt noinc_append_history
 
 alias ll='clear; ls -aslhtr'
 
