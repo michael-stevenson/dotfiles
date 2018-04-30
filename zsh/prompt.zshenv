@@ -1,4 +1,3 @@
-
 reset_color='\e[00m'
 time_color="$(truecolor 123 123 123)"
 name_color="$(truecolor 123 23 23)"
