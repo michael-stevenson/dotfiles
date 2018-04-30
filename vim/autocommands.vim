@@ -3,7 +3,7 @@
 " :shell, we will always be in the right place.
 autocmd BufEnter * cd %:p:h
 
-autocmd BufEnter * AirlineRefresh
+" autocmd BufEnter * AirlineRefresh
 
 " VIM does a good job of figuring out file types,
 " but doesn't treat capital C or H as C++, rather,

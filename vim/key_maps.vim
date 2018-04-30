@@ -12,6 +12,7 @@
 " (remap to ESC)
 " ---
 set imdisable " not sure why this is necessary - can't get it to work otherwise
+imap <M-F12> <ESC>
 imap <M-F12><M-F12> <ESC>
 " catch early release of the modifier key
 imap <M-F12><space> <ESC>
@@ -25,18 +26,18 @@ imap <M-Space> <Space>
 " (switch splits)
 " ---
 nmap <S-w> <C-w>w
-nnoremap <M-F17>j <C-w>j
-nnoremap <M-F17>h <C-w>h
-nnoremap <M-F17>k <C-w>k
-nnoremap <M-F17>l <C-w>l
+nnoremap <M-F12>j <C-w>j
+nnoremap <M-F12>h <C-w>h
+nnoremap <M-F12>k <C-w>k
+nnoremap <M-F12>l <C-w>l
 " nmap <S-J> :5winc -<CR>
 nmap <S-K> :5winc +<CR>
 nmap <S-L> :5winc ><CR>
 nmap <S-H> :5winc <<CR>
 
-map <F2> :BufExplorer<CR>
-nnoremap <silent> <F3> :Explore<CR>
-nnoremap <silent> <F9> :TagbarToggle<CR>
+map      <silent> <M-F12>b :BufExplorer<CR>
+nnoremap <silent> <M-F12>e :Explore<CR>
+nnoremap <silent> <M-F12>t :TagbarToggle<CR>
 
 " white
 " (type 'white' to remove white space)
