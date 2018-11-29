@@ -3,7 +3,7 @@
 # To install, simply:
 # curl -Lks "https://github.com/michael-stevenson/dotfiles/raw/master/docs/README" | bash
 
-uri="/tmp/dotfiles_reloaded"
+uri="https://github.com/michael-stevenson/dotfiles"
 
 mkdir -p $HOME/.dot
 git_dir="$HOME/.dot/master"
