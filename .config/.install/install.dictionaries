@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+# Install stardict format dictionaries for use with 'sdcv'
+# which is aliased in .zshenv to 'define'
+
+set -e
+mkdir -p $HOME/docs/dictionaries
+tar xjf $CFGDIR/dict/english.tar.bz2 -C $HOME/docs/dictionaries

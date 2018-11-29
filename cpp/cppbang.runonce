@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-set -e
-
-git clone https://github.com/michael-stevenson/cppbang $LOCALDOTDIR/cpp/cppbang
-cat <<-EOF >>$LOCALDOTDIR/cpp/cppbang.zshenv
-	path+=($LOCALDOTDIR/cpp/cppbang/)
-EOF
-

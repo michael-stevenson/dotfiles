@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# This file must be sourced to make the generated
+# function effective in the "current shell".
+# e.g.:   source make_color green 0 255 0
+#     :   green "blah"
+
+name=$1
+red=$2
+green=$3
+blue=$4
+
+printer=$(cat <<-EOF
+
+	function $name
+	{
+		printf '\x1b[38;2;%d;%d;%dm' $red $green $blue
+		echo -n "\$@"
+		printf '\x1b[0m'
+	}
+
+EOF
+)
+
+eval "$printer"

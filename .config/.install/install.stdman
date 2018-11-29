@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+dir=$(mktemp -d)
+git clone -q https://github.com/jeaye/stdman.git $dir
+pushd $dir 2>/dev/null 1>/dev/null
+./configure --mandir=$HOME/docs/man 2>/dev/null
+make install 2>/dev/null 1>/dev/null

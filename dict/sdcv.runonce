@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-set -e
-runonce_requires sdcv
-mkdir -p $LOCALDOTDIR/dictionaries
-tar xvjf $DOTDIR/dict/english.tar.bz2 -C $LOCALDOTDIR/dictionaries

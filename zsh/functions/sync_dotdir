@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-cd ${DOTDIR}
-
-git pull
-git push
-
-source $DOTDIR/dot/runonce.zshrc
-run_outstanding_runonce
-

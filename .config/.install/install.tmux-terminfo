@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+hash tic || (echo "Failed to install TMUX terminfo; require 'tic'" && exit)
+tic $CFGDIR/tmux/tmux18-256color.ti

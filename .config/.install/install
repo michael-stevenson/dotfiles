@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# This is "stage 2" of the installation process.  Basically,
+# just attempt to install some things that *can* be installed,
+# i.e. dont require me to know which distribution/package-manager
+# this system uses..  Everything else, we'll get nagged about
+# every once in a while.
+
+# temporarily add "our" path to *the* path because we're still during
+# install here, so we can't rely on the environment yet..
+
+INSTALL_DIR=$(dirname $0)
+PATH=$PATH:$INSTALL_DIR
+
+export CFGDIR=$HOME/.config
+export DOTDIR=$HOME/.dot
+
+mkdir -p $HOME/bin
+mkdir -p $HOME/docs/man
+
+# run all files in "this" directory that are of
+# the form install.xxx
+for f in $(find $INSTALL_DIR -name 'install.*'); do
+	base=$(basename $f)
+	echo "installing: ${base##*.}"
+	$f
+done

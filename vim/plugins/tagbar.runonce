@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-DIR=${DOTDIR}/vim/bundle/tagbar
-if [[ ! -d ${DIR} ]]; then
-	git clone http://github.com/majutsushi/tagbar.git ${DIR}
-fi

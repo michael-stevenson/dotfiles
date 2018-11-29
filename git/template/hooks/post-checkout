@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-[ -n "$AGGRESSIVE_CTAGS" ] && exec $GIT_DIR/scripts/ctags
-return 0

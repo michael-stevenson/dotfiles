@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# setup cron to automatically sync the dotfiles
+
+set -e
+hash crontab || echo "Failed to setup cron to keep dotfile synchronized; require crontab"
+
+tmp_crontab=$(mktemp)
+trap "rm $tmp_crontab" EXIT
+
+crontab -l 2>&1 >$tmp_crontab
+cat <<-EOC >>$tmp_crontab
+	# automatically added by $0
+	0 0 * * * $CFGDIR/cron/daily
+	5 0 * * 0 $CFGDIR/cron/weekly
+	10 0 1 * * $CFGDIR/cron/monthly
+EOC
+
+cat $tmp_crontab | crontab -

@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-DIR=${DOTDIR}/vim/bundle/vim-signature
-if [[ ! -d ${DIR} ]]; then
-	git clone http://github.com/vim-scripts/vim-signature.git ${DIR}
-fi

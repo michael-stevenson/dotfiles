@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-DIR=${DOTDIR}/vim/bundle/showmarks
-if [[ ! -d ${DIR} ]]; then
-	git clone http://github.com/vim-scripts/showmarks2.git ${DIR}
-fi

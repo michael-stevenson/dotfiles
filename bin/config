@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+
+repo_base="$HOME/.dot"
+
+function list_repos
+{
+	for r in $(ls $repo_base); do
+		echo -n "$(basename $r):  "
+		git --git-dir=${repo_base}/$r remote get-url --all origin
+	done
+}
+
+function clone_repo
+{
+	if [ $# != 2 ]; then
+		echo "clone requires two arguments"
+		usage
+		exit -1
+	fi
+
+	local uri=$1; shift
+	local name=$1; shift
+
+	local repo_path=${repo_base}/$name; shift
+	if [ -d ${repo_path} ]; then
+		echo "Already exists"
+		exit -1
+	fi
+
+	git clone --bare $repo_path $uri
+	$0 $name config status.showUntrackedFiles no
+	$0 $name checkout
+}
+
+function init_repo
+{
+	local repo_name=$1; shift
+	local repo_path=${repo_base}/$repo_name
+	if [ -d ${repo_path} ]; then
+		echo "Already exists"
+		exit -1
+	fi
+
+	mkdir -p ${repo_path}
+	git init --bare ${repo_path}
+	$0 $repo_name config status.showUntrackedFiles no
+
+	local cfg_path=$HOME/.config/$repo_name
+	mkdir -p $cfg_path
+	touch ${cfg_path}/vimrc
+	touch ${cfg_path}/zshrc
+	touch ${cfg_path}/tmux.conf
+
+	$0 $repo_name stage $cfg_path
+	$0 $repo_name -c user.name='Auto Generated' -c user.email="$(whoami)@$(hostname -s)" commit -m 'initial; auto-generated commit'
+}
+
+function usage
+{
+	cat <<-EOU
+		config [[repo] <command>]
+
+		With no arguments: list all repos
+		
+		[repo]   : if specified, perform git <command>s
+		           only on the specified repo
+
+				e.g. : config master status
+
+		<command>:
+			"clone": clone a repo into the config system
+			   arg : URI
+				 arg : name
+
+		     e.g. config clone <uri> <name>
+
+		  "init" : create a skeleton repo
+			   arg : name
+
+		     e.g. config init <name>
+
+		  "*"    : passed to git
+
+			   e.g. config status
+
+	EOU
+}
+
+if [ $# -eq 0 ]; then
+	usage
+	exit
+fi
+
+case $1 in
+	"list")
+		shift;
+		list_repos
+		exit
+		;;
+	"clone")
+		shift;
+		clone_repo $@
+		exit
+		;;
+	"init")
+		shift;
+		init_repo $@
+		exit
+		;;
+esac
+
+repos=(${repo_base}/*)
+
+if [ -d ${repo_base}/$1 ]; then
+	repos=("${repo_base}/$1"); shift
+fi
+
+for repo in ${repos[@]}; do
+	shortname=$(basename $repo)
+	git --git-dir="$repo" --work-tree=$HOME "$@" | awk '{ print "'$shortname' | " $0 }'
+done
+

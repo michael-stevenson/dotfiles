@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-mkdir -p $LOCALDOTDIR
-mkdir -p $LOCALDOTDIR/zsh/functions
-
-mkdir -p $LOCALDOTDIR/vim
-touch $LOCALDOTDIR/vim/vimrc
-

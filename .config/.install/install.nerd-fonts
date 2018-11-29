@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+hash curl || echo "Cannot install nerd-fonts, require curl"
+
+mkdir -p $HOME/.local/share/fonts
+cd $HOME/.local/share/fonts
+curl -s -O 'http://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack/Regular/complete/Hack Regular Nerd Font Complete Mono.ttf'

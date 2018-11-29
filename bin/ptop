@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+hash top
+hash htop
+
+declare -a pids=$(pgrep $1)
+switches=""
+for pid in ${pids[@]}; do
+	switches+=" -p $pid "
+done
+
+htop -d 00.5 ${switches}
