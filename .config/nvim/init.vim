@@ -1,8 +1,6 @@
 set termguicolors
 
-set runtimepath+=~/.vim
-
-source ~/.dot/vim/vimrc
+source $HOME/.vimrc
 
 " Yank Visual selection to X11 clipboard
 vnoremap Y "+y 
