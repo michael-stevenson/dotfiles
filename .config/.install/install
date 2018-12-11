@@ -18,6 +18,19 @@ export DOTDIR=$HOME/.dot
 mkdir -p $HOME/bin
 mkdir -p $HOME/docs/man
 
+function news
+{
+	cat <<-EOF >> $HOME/.config/.news
+		From config-install
+		From: config <config@localhost>
+		To: you
+		Subject: Installation News
+
+		$@
+
+	EOF
+}
+
 # run all files in "this" directory that are of
 # the form install.xxx
 for f in $(find $INSTALL_DIR -name 'install.*'); do
