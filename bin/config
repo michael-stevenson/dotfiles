@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
+set -e
+set -o pipefail
+
 repo_base="$HOME/.dot"
+news="$HOME/.config/.news"
 
 function list_repos
 {
@@ -8,6 +12,11 @@ function list_repos
 		echo -n "$(basename $r):  "
 		git --git-dir=${repo_base}/$r remote get-url --all origin
 	done
+}
+
+function news
+{
+	mailx -f $news
 }
 
 function clone_repo
@@ -86,12 +95,23 @@ function usage
 	EOU
 }
 
+have_news=$(stat --print="%s" $news)
+
+if [[ $have_news != "0" ]]; then
+	echo "You have news"
+fi
+
 if [ $# -eq 0 ]; then
 	usage
 	exit
 fi
 
 case $1 in
+	"news")
+		shift;
+		news
+		exit
+		;;
 	"list")
 		shift;
 		list_repos
