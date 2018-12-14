@@ -7,6 +7,6 @@ curl -O https://taskwarrior.org/download/task-2.5.1.tar.gz
 tar xvzf task-2.5.1.tar.gz
 cd task-2.5.1
 
-cmake -DCMAKE_BUILD_TYPE=release -DCMAKE_INSTALL_PREFIX=$HOME/opt .
+cmake -DENABLE_SYNC=OFF -DCMAKE_BUILD_TYPE=release -DCMAKE_INSTALL_PREFIX=$HOME/opt .
 make
 make install
