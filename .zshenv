@@ -26,7 +26,8 @@ typeset -U path PATH
 typeset -U fpath FPATH
 typeset -U manpath MANPATH
 
-path+=($HOME/bin)
+path+=($HOME/bin
+			 $HOME/opt/bin)
 
 fpath+=($HOME/bin
 				$CFGDIR/zsh/zle-widgets
