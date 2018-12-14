@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# This script is used by the config mechanism to add
+# news to the news file.
+
+if [ $# -eq 0 ]; then
+	cat <<-EOF
+		Add a news item to the 'Configuration News'
+		usage: config-news "subject" body
+	EOF
+	exit
+fi
+
+subject=$1; shift
+
+cat <<-EOF >>$HOME/.config/.news
+	From Config $(date +%Y%m%d-%H:%M:%S)
+	From: config <config@localhost.com>
+	To: You <you@localhost.com>
+	Subject: $subject
+
+	$@
+
+EOF
