@@ -95,16 +95,25 @@ function usage
 	EOU
 }
 
-have_news=$(stat --print="%s" $news)
+function check_for_news
+{
+	if [ -r $news ]; then
 
-if [[ $have_news != "0" ]]; then
-	echo "You have news"
-fi
+		have_news=$(stat --print="%s" $news)
+
+		if [[ $have_news != "0" ]]; then
+			echo "You have news"
+		fi
+
+	fi
+}
 
 if [ $# -eq 0 ]; then
 	usage
 	exit
 fi
+
+check_for_news
 
 case $1 in
 	"news")
