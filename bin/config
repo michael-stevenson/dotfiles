@@ -16,7 +16,7 @@ function list_repos
 
 function news
 {
-	mailx -f $news
+	$HOME/opt/bin/mailx -f $news
 }
 
 function clone_repo
