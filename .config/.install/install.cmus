@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+d=$(mktemp -d)
+cd $d
+
+git clone https://github.com/cmus/cmus
+cd cmus
+./configure prefix=$HOME/opt
+make
+make install
