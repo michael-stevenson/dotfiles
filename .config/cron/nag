@@ -15,15 +15,14 @@ function about
 
 about zsh
 about dunst
-about xmessage
 about vim
 about nvim
 about tmux
 about sdcv
 about curl
 about wget
-about bat # github.com/sharkdp/bat
-about cmus # console music player
+about bat
+about cmus
 about task
 about weechat
 about xclip
