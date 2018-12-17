@@ -16,7 +16,11 @@ function list_repos
 
 function news
 {
-	$HOME/opt/bin/mailx -f $news
+	if [ -r $news ]; then
+		$HOME/opt/bin/mailx -f $news
+	else
+		echo "no news"
+	fi
 }
 
 function clone_repo
