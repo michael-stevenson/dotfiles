@@ -9,9 +9,8 @@
 
 function about
 {
-	hash $1 2>/dev/null || echo "$1 is missing"
+	hash $1 2>/dev/null || $HOME/bin/config-news "$1 is missing" "$1 is missing"
 }
-
 
 about zsh
 about dunst
