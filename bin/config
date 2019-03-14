@@ -10,7 +10,8 @@ function list_repos
 {
 	for r in $(ls $repo_base); do
 		echo -n "$(basename $r):  "
-		git --git-dir=${repo_base}/$r remote get-url --all origin
+		git --git-dir=${repo_base}/$r remote get-url --all origin 2>/dev/null ||
+		git --git-dir=${repo_base}/$r remote -v  | grep fetch
 	done
 }
 
@@ -73,14 +74,15 @@ function usage
 	cat <<-EOU
 		config [[repo] <command>]
 
-		With no arguments: list all repos
-		
 		[repo]   : if specified, perform git <command>s
 		           only on the specified repo
 
 				e.g. : config master status
 
 		<command>:
+		  "list" : list all repos
+				 e.g. config list
+
 			"clone": clone a repo into the config system
 			   arg : URI
 				 arg : name
