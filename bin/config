@@ -69,6 +69,16 @@ function init_repo
 	$0 $repo_name -c user.name='Auto Generated' -c user.email="$(whoami)@$(hostname -s)" commit -m 'initial; auto-generated commit'
 }
 
+function owner
+{
+	set +e
+	local file=$1; shift
+	for r in $(ls $repo_base); do
+		git --git-dir=${repo_base}/$r --work-tree=$HOME ls-files --error-unmatch $file 1>/dev/null 2>/dev/null
+		[[ $? -eq 0 ]] && echo "$r"
+	done
+}
+
 function usage
 {
 	cat <<-EOU
@@ -93,6 +103,11 @@ function usage
 			   arg : name
 
 		     e.g. config init <name>
+
+		  "owner" : pass a file and be told which of the config repos it is managed by
+			   arg : path
+
+				 e.g. config owner zsh/function/blah
 
 		  "*"    : passed to git
 
@@ -140,6 +155,11 @@ case $1 in
 	"init")
 		shift;
 		init_repo $@
+		exit
+		;;
+	"owner")
+		shift;
+		owner $@
 		exit
 		;;
 esac
