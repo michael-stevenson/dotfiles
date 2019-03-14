@@ -35,13 +35,13 @@ function clone_repo
 	local uri=$1; shift
 	local name=$1; shift
 
-	local repo_path=${repo_base}/$name; shift
+	local repo_path=${repo_base}/$name;
 	if [ -d ${repo_path} ]; then
 		echo "Already exists"
 		exit -1
 	fi
 
-	git clone --bare $repo_path $uri
+	git clone --bare $uri $repo_path
 	$0 $name config status.showUntrackedFiles no
 	$0 $name checkout
 }
