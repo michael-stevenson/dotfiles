@@ -72,10 +72,12 @@ function init_repo
 function owner
 {
 	set +e
-	local file=$1; shift
-	for r in $(ls $repo_base); do
-		git --git-dir=${repo_base}/$r --work-tree=$HOME ls-files --error-unmatch $file 1>/dev/null 2>/dev/null
-		[[ $? -eq 0 ]] && echo "$r"
+
+	for f in $@; do
+		for r in $(ls $repo_base); do
+			git --git-dir=${repo_base}/$r --work-tree=$HOME ls-files --error-unmatch $f 1>/dev/null 2>/dev/null
+			[[ $? -eq 0 ]] && echo "$f is owned by: $r"
+		done
 	done
 }
 
