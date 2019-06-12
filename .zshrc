@@ -33,7 +33,7 @@ colors
 autoload -U compinit
 compinit
 
-nag
+[[ -x nag ]] && nag
 
 for rc in $(find $CFGDIR -name 'zshrc'); do
 	source $rc

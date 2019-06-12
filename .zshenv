@@ -22,9 +22,10 @@ export PROMPT=$'%{\e[38;2;123;23;23m%}%n%{\e[00m%}@%m[%3~]> '
 setopt null_glob
 
 # In case we're running in a compatibility mode
-typeset -U path PATH
-typeset -U fpath FPATH
-typeset -U manpath MANPATH
+typeset -U PATH path
+typeset -U FPATH fpath
+typeset -U MANPATH manpath
+typeset -UT PYTHONPATH pythonpath
 
 path+=($HOME/bin
        $HOME/opt/bin)
@@ -35,6 +36,8 @@ fpath+=($HOME/bin
 )
 
 manpath+=($HOME/docs/man)
+
+pythonpath+=($HOME/opt/local/python)
 
 alias define='sdcv -n --data-dir $HOME/docs/dictionaries'
 alias config="$HOME/bin/config"
