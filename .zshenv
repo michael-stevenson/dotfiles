@@ -37,7 +37,9 @@ fpath+=($HOME/bin
 
 manpath+=($HOME/docs/man)
 
-pythonpath+=($HOME/opt/local/python)
+pythonpath+=($HOME/opt/local/python
+             $HOME/opt/python
+)
 
 alias define='sdcv -n --data-dir $HOME/docs/dictionaries'
 alias config="$HOME/bin/config"
