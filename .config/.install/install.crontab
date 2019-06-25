@@ -7,7 +7,7 @@ hash crontab || echo "Failed to setup cron to keep dotfile synchronized; require
 tmp_crontab=$(mktemp)
 trap "rm $tmp_crontab" EXIT
 
-crontab -l 2>&1 >$tmp_crontab
+crontab -l 2>&1 >$tmp_crontab || true
 cat <<-EOC >>$tmp_crontab
 	# minute hour <day o month> month <day of week, 0 or 7 is Sun>
 	# automatically added by $0
