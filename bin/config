@@ -15,6 +15,15 @@ function list_repos
 	done
 }
 
+function sync_repos
+{
+	for r in $(ls $repo_base); do
+		echo -n "syncing $(basename $r):  "
+		git --git-dir=${repo_base}/$r --work-tree=$HOME pull
+		git --git-dir=${repo_base}/$r --work-tree=$HOME push origin
+	done
+}
+
 function news
 {
 	if [ -r $news ]; then
@@ -147,6 +156,11 @@ case $1 in
 	"list")
 		shift;
 		list_repos
+		exit
+		;;
+	"sync")
+		shift;
+		sync_repos
 		exit
 		;;
 	"clone")
