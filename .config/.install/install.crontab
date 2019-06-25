@@ -11,6 +11,8 @@ crontab -l 2>&1 >$tmp_crontab || true
 cat <<-EOC >>$tmp_crontab
 	# minute hour <day o month> month <day of week, 0 or 7 is Sun>
 	# automatically added by $0
+	0,15,30,45 * * * * run-parts $CFGDIR/cron/quarter_hourly
+	0,30 * * * * run-parts $CFGDIR/cron/half_hourly
 	0 * * * * run-parts $CFGDIR/cron/hourly
 	0 0 * * * run-parts $CFGDIR/cron/daily
 	5 0 * * 0 run-parts $CFGDIR/cron/weekly
