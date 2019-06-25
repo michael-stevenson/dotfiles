@@ -3,10 +3,10 @@
 news="$HOME/.config/.news"
 
 $HOME/bin/config master fetch
-$HOME/bin/config merge --ff-only origin/master
+$HOME/bin/config master merge --ff-only origin/master
 
 if [ $? -ne 0 ]; then
-	$HOME/bin/config rebase origin/master
+	$HOME/bin/config master rebase origin/master
 
 	if [ $? -ne 0 ]; then
 		config-news "Sync Dot-Dir requires manual intervention" "

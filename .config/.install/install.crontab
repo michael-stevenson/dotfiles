@@ -9,10 +9,12 @@ trap "rm $tmp_crontab" EXIT
 
 crontab -l 2>&1 >$tmp_crontab
 cat <<-EOC >>$tmp_crontab
+	# minute hour <day o month> month <day of week, 0 or 7 is Sun>
 	# automatically added by $0
-	0 0 * * * $CFGDIR/cron/daily
-	5 0 * * 0 $CFGDIR/cron/weekly
-	10 0 1 * * $CFGDIR/cron/monthly
+	0 * * * * run-parts $CFGDIR/cron/hourly
+	0 0 * * * run-parts $CFGDIR/cron/daily
+	5 0 * * 0 run-parts $CFGDIR/cron/weekly
+	10 0 1 * * run-parts $CFGDIR/cron/monthly
 EOC
 
 cat $tmp_crontab | crontab -
