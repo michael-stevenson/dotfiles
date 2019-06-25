@@ -17,10 +17,12 @@ function list_repos
 
 function sync_repos
 {
+	set +e
 	for r in $(ls $repo_base); do
-		echo -n "syncing $(basename $r):  "
-		git --git-dir=${repo_base}/$r --work-tree=$HOME pull
-		git --git-dir=${repo_base}/$r --work-tree=$HOME push origin
+		echo ""
+		shortname=$(basename $r)
+		git --git-dir=${repo_base}/$r --work-tree=$HOME pull 2>&1 | awk '{ print "'$shortname' | " $0 }'
+		git --git-dir=${repo_base}/$r --work-tree=$HOME push origin 2>&1 | awk '{ print "'$shortname' | " $0 }'
 	done
 }
 
@@ -103,6 +105,9 @@ function usage
 		<command>:
 		  "list" : list all repos
 				 e.g. config list
+
+		  "sync" : pull and push master for all repos
+				 e.g. config sync
 
 			"clone": clone a repo into the config system
 			   arg : URI
