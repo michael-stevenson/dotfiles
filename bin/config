@@ -22,7 +22,10 @@ function sync_repos
 		echo ""
 		shortname=$(basename $r)
 		git --git-dir=${repo_base}/$r --work-tree=$HOME pull 2>&1 | awk '{ print "'$shortname' | " $0 }'
-		git --git-dir=${repo_base}/$r --work-tree=$HOME push origin 2>&1 | awk '{ print "'$shortname' | " $0 }'
+		diverged=$(git --git-dir=${repo_base}/$r --work-tree=$HOME log ^FETCH_HEAD HEAD 2>&1 | wc -l)
+		if [[ $diverged -ne 0 ]]; then
+			git --git-dir=${repo_base}/$r --work-tree=$HOME push origin 2>&1 | awk '{ print "'$shortname' | " $0 }'
+		fi
 	done
 }
 
