@@ -90,9 +90,11 @@ function owner
 	for f in $@; do
 		for r in $(ls $repo_base); do
 			git --git-dir=${repo_base}/$r --work-tree=$HOME ls-files --error-unmatch $f 1>/dev/null 2>/dev/null
-			[[ $? -eq 0 ]] && echo "$f is owned by: $r"
+			[[ $? -eq 0 ]] && echo "$f is owned by: $r" && return
 		done
 	done
+
+	echo "$f is unowned by config"
 }
 
 function usage
