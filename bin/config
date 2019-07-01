@@ -100,38 +100,27 @@ function usage
 	cat <<-EOU
 		config [[repo] <command>]
 
-		[repo]   : if specified, perform git <command>s
-		           only on the specified repo
+		  [repo]   : if specified, perform git <command>s
+		             only on the specified repo
 
-				e.g. : config master status
+		  <command>s:
 
-		<command>:
-		  "list" : list all repos
-				 e.g. config list
+		    "list" : list all repos
+		    "sync" : pull and push master for all repos
+		    "clone": clone a repo into the config system
+		    "init" : create a skeleton repo
+		    "owner" : pass a file and be told which of the config repos it is managed by
+		    "*"    : passed to git
 
-		  "sync" : pull and push master for all repos
-				 e.g. config sync
+		  examples:
 
-			"clone": clone a repo into the config system
-			   arg : URI
-				 arg : name
-
-		     e.g. config clone <uri> <name>
-
-		  "init" : create a skeleton repo
-			   arg : name
-
-		     e.g. config init <name>
-
-		  "owner" : pass a file and be told which of the config repos it is managed by
-			   arg : path
-
-				 e.g. config owner zsh/function/blah
-
-		  "*"    : passed to git
-
-			   e.g. config status
-
+		    config list
+		    config sync
+		    config clone <uri> <name>
+		    config init <name>
+		    config owner zsh/function/blah
+		    config status
+		    config <repo> log
 	EOU
 }
 
