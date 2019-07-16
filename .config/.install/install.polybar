@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+d=$(mktemp -d)
+cd $d
+
+git clone http://github.com/polybar/polybar
+cd polybar
+git checkout 3.3.1
+git submodule init
+git submodule update
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/opt
+make -j4
+make install
