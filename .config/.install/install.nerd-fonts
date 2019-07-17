@@ -5,7 +5,7 @@ set -e
 hash curl || news "Cannot install nerd-fonts, require curl"
 hash fc-cache || news "Cannot install nerd-fonts, require fc-cache from fontconfig"
 
-mkdir -p $HOME/.local/share/fonts
-cd $HOME/.local/share/fonts
+mkdir -p $HOME/opt/share/fonts
+cd $HOME/opt/share/fonts
 curl -s -O 'http://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack/Regular/complete/Hack Regular Nerd Font Complete Mono.ttf'
 fc-cache -f -v

@@ -2,5 +2,5 @@
 set -e
 dir=$(mktemp -d)
 git clone -q https://github.com/michael-stevenson/cppbang $dir
-cp $dir/cppbang.sh $HOME/bin/cppbang
-chmod u+x $HOME/bin/cppbang
+cp $dir/cppbang.sh $HOME/opt/bin/cppbang
+chmod u+x $HOME/opt/bin/cppbang
