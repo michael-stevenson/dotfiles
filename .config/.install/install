@@ -22,10 +22,20 @@ mkdir -p $HOME/docs/man
 # the form install.xxx
 for f in $(find $INSTALL_DIR -name 'install.*'); do
 	base=$(basename $f)
-	echo "installing: ${base##*.}"
+	item="${base##*.}"
+
+	done_marker="done.${item}"
+	if [ -e "${INSTALL_DIR}/${done_marker}" ]; then
+		echo "skipping: ${item}"
+		continue
+	fi
+
+	echo "installing: ${item}"
 	e=$(mktemp)
 	$f 2>$e
 	if [ $? -ne 0 ]; then
-		config-news "Failed to install ${base##*.}" "$(cat $e)"
+		config-news "Failed to install ${item}" "$(cat $e)"
+	else
+		touch "done.${item}"
 	fi
 done
