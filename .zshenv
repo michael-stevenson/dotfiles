@@ -30,12 +30,11 @@ typeset -UT PYTHONPATH pythonpath
 path+=($HOME/bin
        $HOME/opt/bin)
 
-fpath+=($HOME/bin
-        $HOME/opt/bin
-        $CFGDIR/zsh/zle-widgets
-)
+fpath+=($CFGDIR/zsh/zle-widgets)
 
-manpath+=($HOME/docs/man)
+manpath+=($HOME/docs/man
+	$HOME/opt/share/man
+)
 
 pythonpath+=($HOME/opt/local/python
              $HOME/opt/python
