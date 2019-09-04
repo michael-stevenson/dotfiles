@@ -15,8 +15,12 @@ PATH=$PATH:$INSTALL_DIR
 export CFGDIR=$HOME/.config
 export DOTDIR=$HOME/.dot
 
-mkdir -p $HOME/bin
-mkdir -p $HOME/docs/man
+mkdir -p $HOME/opt
+mkdir -p $HOME/opt/bin
+mkdir -p $HOME/opt/share
+mkdir -p $HOME/opt/man
+mkdir -p $HOME/opt/lib
+mkdir -p $HOME/docs
 
 # run all files in "this" directory that are of
 # the form install.xxx
@@ -34,8 +38,8 @@ for f in $(find $INSTALL_DIR -name 'install.*'); do
 	e=$(mktemp)
 	$f 2>$e
 	if [ $? -ne 0 ]; then
-		config-news "Failed to install ${item}" "$(cat $e)"
+		$HOME/opt/bin/config-news "Failed to install ${item}" "$(cat $e)"
 	else
-		touch "done.${item}"
+		touch "${INSTALL_DIR}/${done_marker}"
 	fi
 done
