@@ -88,13 +88,18 @@ function owner
 	set +e
 
 	for f in $@; do
+		owner=""
 		for r in $(ls $repo_base); do
 			git --git-dir=${repo_base}/$r --work-tree=$HOME ls-files --error-unmatch $f 1>/dev/null 2>/dev/null
-			[[ $? -eq 0 ]] && echo "$f is owned by: $r" && return
+			if [[ $? -eq 0 ]]; then
+				owner="$r"
+				echo "$f is owned by: $r"
+			fi
 		done
+		if [[ -z $owner ]]; then
+			echo "$f is unowned by config"
+		fi
 	done
-
-	echo "$f is unowned by config"
 }
 
 function usage
