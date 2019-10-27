@@ -43,6 +43,10 @@ pythonpath+=($HOME/opt/local/python
 alias define='sdcv -n --data-dir $HOME/opt/share/dictionaries'
 alias config="$HOME/opt/bin/config"
 
+if [ -x $HOME/opt/bin/exa ]; then
+	alias ls="$HOME/opt/bin/exa"
+fi
+
 # Source all local zshenv files.  This should always
 # be last in case the local files want to override something
 # typically set in the master file.
