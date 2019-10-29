@@ -6,8 +6,6 @@ setopt pushd_ignore_dups
 setopt pushd_silent
 setopt noinc_append_history
 
-alias ll='clear; ls -aslhtr'
-
 bindkey -v
 bindkey -M viins "M-F17" vi-cmd-mode
 bindkey -M vicmd '?' vi-history-search-backward
