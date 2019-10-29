@@ -19,6 +19,7 @@ fi
 export PROMPT=$'%{\e[38;2;123;23;23m%}%n%{\e[00m%}@%m[%3~]> '
 #RPROMPT="%{$time_color%}%t %{$reset_color%}"
 
+
 setopt null_glob
 
 # In case we're running in a compatibility mode
@@ -28,7 +29,8 @@ typeset -U MANPATH manpath
 typeset -UT PYTHONPATH pythonpath
 
 path+=($HOME/bin
-       $HOME/opt/bin)
+       $HOME/opt/bin
+			 $HOME/.cargo/bin)
 
 fpath+=($CFGDIR/zsh/zle-widgets)
 

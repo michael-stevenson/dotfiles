@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+hash curl || (echo "cannot install rust, no curl" && exit 1)
+
+dir=$(mktemp -d)
+cd $dir
+
+curl -sSf https://sh.rustup.rs -o rustup.sh
+chmod u+x ./rustup.sh
+./rustup.sh -y
