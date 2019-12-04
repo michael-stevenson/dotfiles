@@ -58,6 +58,9 @@ set listchars=tab:->,trail:$
 " bar all of the time..
 set laststatus=2
 
+" full path in statusline
+set statusline+=%F
+
 " airline mods
 let g:airline#extensions#hunks#enabled = 0
 
