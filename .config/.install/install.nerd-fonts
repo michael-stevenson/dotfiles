@@ -7,5 +7,18 @@ hash fc-cache || news "Cannot install nerd-fonts, require fc-cache from fontconf
 
 mkdir -p $HOME/opt/share/fonts
 cd $HOME/opt/share/fonts
-curl -s -O 'http://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack/Regular/complete/Hack Regular Nerd Font Complete Mono.ttf'
+
+uri='https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0'
+
+declare -a fonts
+fonts+=(Regular)
+
+for font in ${fonts[@]}
+do
+	echo "Getting ${font}"
+	curl -sSLkO "${uri}/${font}.zip"
+	unzip -o ${font}.zip
+	unlink ${font}.zip
+done
+
 fc-cache -f -v

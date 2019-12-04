@@ -1,73 +1,152 @@
-#!/bin/sh
+#!/bin/bash
 
 cleanuptest="0 -eq 0"
 extractdircmd="mktemp -d /tmp/selfextract.XXXXXX"
-compressioncmd="gzip"
+compressioncmd="gzip -1"
 extractcmd="tar xz"
+listcmd="tar tz"
+taroptions="--no-same-owner "
+PREFIX=""
+VERBOSE=${VERBOSE_SXS:-false}
+declare -a STRIP=()
+
+original_cmd="$@"
 
 for arg do
 	shift
 	[ "$arg" = "--no-cleanup" ] && cleanuptest="1 -eq 0" && continue
 	[ "$arg" = "--no-failure-cleanup" ] && cleanuptest="\$retcode -eq 0" && continue
 	[ "$arg" = "--local-extract" ] && extractdircmd="pwd" && continue
-	[ "$arg" = "--no-compression" ] && compressioncmd="touch" && extractcmd="tar x" && continue
-  set -- "$@" "$arg"
+	[ "$arg" = "--no-compression" ] && compressioncmd="touch" && extractcmd="tar x" && listcmd="tar t" && continue
+	[ "$arg" = "--no-overwrite" ] && taroptions+=" --keep-old-files" && continue
+	[ "$arg" = "--verbose" ] && VERBOSE=true && continue
+	[ ${arg%=*} = "--prefix" ] && PREFIX="${arg#--prefix=}/" && continue
+	[ ${arg%=*} = "--strip" ] && STRIP+=("${arg#--strip=}/") && continue
+	set -- "$@" "$arg"
 done
 
-SCR=$1
+script=$1
 shift
-SXS=${SCR%.*}.sxs
 
-decompress="
-#!/bin/sh\n
-#echo 'Decompressing..'\n
-extractonly=0\n
-for arg do\n
-	shift\n
-	[ \"\$arg\" = \"--extract\" ] && extractonly=1 && continue\n
-  set -- \"\$@\" \"\$arg\"\n
-done\n
-export EXTRACTDIR=\`$extractdircmd\`\n
-ARCHIVE=\`awk '/^ __ARCHIVE_BELOW__/ {print NR +1; exit 0; }' \$0\`\n
-tail -n+\$ARCHIVE \$0 | $extractcmd -C \$EXTRACTDIR\n
-BSXDIR=\`pwd\`\n
-export BSXDIR\n
-cd \$EXTRACTDIR\n
-[ \$extractonly -eq 1 ] && echo \$EXTRACTDIR && exit 0\n
-chmod u+x ./$SCR\n
-./$SCR \$*\n
-retcode=\$?\n
-cd \$BSXDIR\n
-[ $cleanuptest ] && rm -rf \$EXTRACTDIR\n
-exit \$retcode\n
-__ARCHIVE_BELOW__"
+base_name=${script##*/}
+base_name=${base_name%.*}
+sxs=${base_name}.sxs
+payload=${base_name}.tar
 
-echo "Collecting..."
-tar --recursion -cf payload.tar $SCR $*
+STRIPPED_SCRIPT=$script
+for s in ${STRIP[@]}
+do
+	${VERBOSE} && echo "Stripping: $s"
+	STRIPPED_SCRIPT=${STRIPPED_SCRIPT#${s}}
+done
 
-if [ -e "payload.tar" ]; then
-	$compressioncmd payload.tar
-	#gzip payload.tar
+decompress=$(cat <<-EOD
+	#!/bin/bash
 
-	if [ -e "payload.tar.gz" ]
- 	then
-		echo $decompress | cat - payload.tar.gz > $SXS
-		rm payload.tar.gz
-		chmod u+x $SXS
-	elif [ -e "payload.tar" ]
+	set -eE
+
+	# Created with:
+	# makesxs ${original_cmd}
+
+	extractonly=0
+	listonly=0
+	for arg do
+	  shift
+	  [ "\$arg" = "--extract" ] && extractonly=1 && continue
+	  [ "\$arg" = "--list" ] && listonly=1 && continue
+	  set -- "\$@" "\$arg"
+	done
+
+	export EXTRACTDIR=\$($extractdircmd)
+	ARCHIVE=\$(awk '/^__ARCHIVE_BELOW__/ {print NR +1; exit 0; }' \$0)
+
+	if [ \$listonly -eq 1 ]; then
+		tail -n+\$ARCHIVE \$0 | $listcmd
+		exit 0
+	fi
+
+	tail -n+\$ARCHIVE \$0 | $extractcmd $taroptions -C \$EXTRACTDIR 2>/dev/null
+
+	export BSXDIR=\$(pwd)
+	export SXSDIR=\$(pwd)
+
+	cd \$EXTRACTDIR
+	if [ \$extractonly -eq 1 ]
 	then
-		echo $decompress | cat - payload.tar > $SXS
-		rm payload.tar
-		chmod u+x $SXS
+  	echo \$EXTRACTDIR
+	  exit 0
+	fi
+
+	chmod u+x ./$STRIPPED_SCRIPT
+	./$STRIPPED_SCRIPT "\$@"
+	retcode=\$?
+
+	cd \$BSXDIR
+	[ $cleanuptest ] && rm -rf \$EXTRACTDIR
+	exit \$retcode
+
+	__ARCHIVE_BELOW__
+EOD
+)
+
+function tar_payload
+{
+	set -e
+	${VERBOSE} && VERBOSE_SWITCH="-vv"
+
+	# I don't want to even mention how long it took
+	# me to figure out that tar removes the leading
+	# '/' on a path name BEFORE applying your transform.
+	# W. T. F.
+	tarcmd="tar --dereference ${VERBOSE_SWITCH} --warning=none --recursion -cf ${payload} "
+	for s in ${STRIP[@]}
+	do
+		tarcmd+="--transform s|${s#/}|| "
+	done
+
+	$VERBOSE && echo "$tarcmd $script $*"
+
+	if ${VERBOSE}; then
+		${tarcmd} $script $*
 	else
-		echo "payload.tar.gz. does not exist"
+		echo -n "Collecting..."
+		${tarcmd} $script $* 2>&1
+	fi
+
+	$VERBOSE && tar -tf ${payload}
+
+}
+
+tar_payload $* | grep -v "Removing leading"
+
+if [ -e "${payload}" ]; then
+	$compressioncmd ${payload}
+
+	if [ -e "${payload}.gz" ]; then
+
+		echo "$decompress" | cat - ${payload}.gz > ${PREFIX}$sxs
+		rm ${payload}.gz
+		chmod u+x ${PREFIX}$sxs
+
+	elif [ -e "${payload}" ]; then
+
+		echo "$decompress" | cat - ${payload} > ${PREFIX}$sxs
+		rm ${payload}
+		chmod u+x ${PREFIX}$sxs
+
+	else
+
+		echo "${payload}.gz. does not exist"
 		exit 1
+
   fi
 
 else
-	echo "payload.tar does not exist"
+
+	echo "${payload} does not exist"
 	exit 1
+
 fi
 
-echo "$SXS created"
+echo "${PREFIX}$sxs created"
 exit 0
