@@ -160,6 +160,7 @@ for_window [class="^.*"] border pixel 2
 smart_borders on
 
 bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+plus floating toggle
 bindsym $mod+minus scratchpad show
 bindsym $mod+s exec "/usr/sbin/s2ram"
 
