@@ -46,7 +46,6 @@ alias define='sdcv -n --data-dir $HOME/opt/share/dictionaries'
 alias config="$HOME/opt/bin/config"
 
 if [[ $(hash exa) -eq 0 ]]; then
-	alias ls="exa"
 	alias ll="clear; exa --sort modified -l"
 else
 	alias ll="clear; ls -aslhtr"
