@@ -113,6 +113,7 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_autoshowtag = 1
 
+
 " Source anything in the home directory that ends in .vimrc,
 " this allows customization by further, more specific, config
 " repositories
@@ -120,3 +121,7 @@ let rcs = glob("`find $CFGDIR -name 'vimrc' -exec readlink -f {} +`", 0, 1)
 for rc in rcs
 	exe "source" fnameescape(rc)
 endfor
+
+" allow directory specific .vimrc files
+set exrc
+set secure
