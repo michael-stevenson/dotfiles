@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+url="$(git remote get-url origin)"
+
+master_dir="${HOME}/.dot/master"
+mkdir -p ${master_dir}
+
+mkdir -p ${HOME}/.local/{var,bin,etc,man,share}
+
+git clone --bare ${url} ${master_dir}
+git --git-dir=${master_dir} --work-tree=$HOME config status.showUntrackedFiles no
+git --git-dir=${master_dir} --work-tree=$HOME checkout
+
+if [ $? != 0 ]; then
+	# some pre-existing files collided..
+	echo "Some files might have collided, backing-up existing dot files to $HOME/.dot-backup"
+	mkdir -p $HOME/.dot-backup
+	git --git-dir=${master_dir} --work-tree=$HOME checkout 2>&1 | egrep "\s+\." | awk '{print $1}' | xargs -I{} mv {} $HOME/.dot-backup
+	git --git-dir=${master_dir} --work-tree=$HOME checkout
+fi
+
+cat <<-EOF
+dot is installed.
+You may need to 'source $HOME/.zshenv' to enable it.
+Then, consider adding additional repositories (dot add).
+Typing 'dot' without a subcommand will show help.
+EOF

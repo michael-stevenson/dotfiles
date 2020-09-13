@@ -1,5 +1,0 @@
-filename=$(latest $2)
-if [[ ${#filename} -gt 0 ]]; then
-	grep $1 ${filename}
-fi
-return -1

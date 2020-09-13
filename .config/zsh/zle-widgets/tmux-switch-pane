@@ -1,5 +1,0 @@
-if [[ -n $TMUX ]]; then
-	tmux down-pane;
-else
-	print "\ntmux not running\n" >&2;
-fi

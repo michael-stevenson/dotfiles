@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-process_name=$1
-process_pid=`pgrep ${process_name}`
-top -d 00.5 -H -p ${process_pid}

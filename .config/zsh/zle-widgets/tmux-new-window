@@ -1,5 +1,0 @@
-if [[ -n $TMUX ]]; then
-	tmux new-window
-else
-	print "\ntmux not running\n" >&2;
-fi

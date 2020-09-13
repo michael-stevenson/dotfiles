@@ -1,6 +1,0 @@
-if [[ -n $TMUX ]]; then
-	tmux down-pane;
-	zle vi-insert;
-else
-	print "\ntmux not running\n" >&2;
-fi

@@ -1,2 +1,0 @@
-nnoremap <buffer> bc o<ESC>:'a,. s/^/#/<CR>
-nnoremap <buffer> uc mb:'a,'b s/^#//<CR>dd

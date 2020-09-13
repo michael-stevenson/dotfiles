@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-d=$(mktemp -d)
-cd $d
-
-wget https://github.com/jwilm/alacritty/releases/download/v0.2.4/Alacritty-v0.2.4-x86_64.tar.gz
-tar xvzf Alacritty-v0.2.4-x86_64.tar.gz
-install alacritty $HOME/opt/bin

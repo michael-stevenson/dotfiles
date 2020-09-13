@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-set -e
-trap "rm -rf .git/tags.$$ 2>/dev/null" EXIT
-echo "regenerating CTAGS"
-/usr/bin/env ctags -f .git/tags.$$ --tag-relative=yes -R --extra=+q --fields=+afiknsSt --exclude=.git --exclude="*.java" --exclude="*.cs" --exclude="*.js" --exclude="*.py" --exclude="*.sql" --exclude="*.sh"
-mv .git/tags.$$ .git/tags

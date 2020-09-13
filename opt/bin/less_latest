@@ -1,5 +1,0 @@
-filename=$(latest $1)
-if [[ ${#filename} -gt 0 ]]; then
-	less ${filename}
-fi
-return -1
