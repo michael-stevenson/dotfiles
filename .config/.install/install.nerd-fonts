@@ -5,8 +5,9 @@ set -e
 hash curl || news "Cannot install nerd-fonts, require curl"
 hash fc-cache || news "Cannot install nerd-fonts, require fc-cache from fontconfig"
 
-mkdir -p $HOME/opt/share/fonts
-cd $HOME/opt/share/fonts
+fontdir=$HOME/.local/share/fonts
+mkdir -p $fontdir
+cd $fontdir
 
 uri='https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0'
 
@@ -21,4 +22,4 @@ do
 	unlink ${font}.zip
 done
 
-fc-cache -f -v
+fc-cache -fv ${fontdir}
