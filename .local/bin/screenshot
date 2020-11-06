@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+hash shotgun
+hash slop
+
+SCREENSHOTS=$HOME/screenshots
+mkdir -p $SCREENSHOTS
+
+NOW=$(date +%Y%m%d_%H%M%S)
+FILE=${SCREENSHOTS}/${NOW}.png
+
+coordinates="$(slop -c 1,1,1,.25 -l -f "-i %i -g %g")"
+sleep 1
+shotgun ${coordinates} ${FILE}
+
+ln -sf ${FILE} ${SCREENSHOTS}/latest
+
+set +e
+hash xclip && echo "${FILE}" | xclip -i -selection clipboard

@@ -1,0 +1,87 @@
+#!/bin/bash
+
+files=()
+for arg do
+	shift
+
+	if [ -e $arg ]; then
+		files+=($arg)
+	fi
+
+	set -- "$@" "$arg"
+done
+
+script=$1
+shift
+
+base_name=${script##*/}
+base_name=${base_name%.*}
+sxs=${base_name}.sxs
+payload=${base_name}.tar
+
+# fixup args to replace filenames with their
+# eventual location in the tar file..
+static_args="$@"
+for file in ${files[@]}; do
+	# for each file we capture, we want to re-path any reference
+	# to it to be relative to the eventual extraction directory.
+	relative_file="${file#*/}"
+	static_args="${static_args//${file}/${relative_file}}"
+done
+
+embedded_script=$(cat <<-EOD
+	#!/bin/bash
+
+	set -eE
+
+	# Created with:
+	# makesxs ${@}
+	# on $(date +%Y-%m-%dT%H%M%S)
+
+	extractonly=0
+	listonly=0
+	for arg do
+	  shift
+	  [ "\$arg" = "--extract" ] && extractonly=1 && continue
+	  [ "\$arg" = "--list" ] && listonly=1 && continue
+	  set -- "\$@" "\$arg"
+	done
+
+	export EXTRACTDIR=\$(mktemp -d /tmp/sxs.XXXXXX)
+	ARCHIVE=\$(awk '/^__ARCHIVE_BELOW__/ {print NR +1; exit 0; }' \$0)
+
+	if [ \$listonly -eq 1 ]; then
+		tail -n+\$ARCHIVE \$0 | tar tz
+		exit 0
+	fi
+
+	tail -n+\$ARCHIVE \$0 | tar xz --no-same-owner -C \$EXTRACTDIR 2>/dev/null
+
+	export SXSDIR=\$(pwd)
+
+	cd \$EXTRACTDIR
+	if [ \$extractonly -eq 1 ]; then
+		echo \$EXTRACTDIR
+		exit 0
+	fi
+
+	chmod u+x ${script#*/}
+	${script#*/} ${static_args} \$@
+	retcode=\$?
+
+	cd \$SXSDIR
+	rm -rf \$EXTRACTDIR
+	exit \$retcode
+
+	__ARCHIVE_BELOW__
+EOD
+)
+
+tar --dereference --warning=none --recursion --create --gzip \
+	--transform 's|\./||' --transform 's|\.\./||' ${files[@]} \
+	--file=${payload}
+
+echo "$embedded_script" | cat - ${payload} > ${sxs}
+rm ${payload}
+chmod u+x ${sxs}
+echo "$sxs created"

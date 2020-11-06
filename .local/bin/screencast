@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -e
+
+hash slop
+hash ffmpeg
+
+RECORDINGS=$HOME/screencasts
+mkdir -p $RECORDINGS
+
+NOW=$(date +%Y%m%d_%H%M%S)
+FILE=${RECORDINGS}/${NOW}.mkv
+SOUND=" -f alsa -i pulse"
+
+for arg do
+	shift
+	[ "$arg" == "--nosound" ] && SOUND="" && continue
+	[ "$arg" == "--no-sound" ] && SOUND="" && continue
+	set -- "$@" "$arg"
+done
+
+# so that I can ctrl-c out of ffmpeg and still have
+# the symlink created..
+set +e
+
+slop=$(slop -f "%x %y %w %h %g %i") || exit 1
+read -r X Y W H G ID < <(echo $slop)
+ffmpeg -f x11grab -s "$W"x"$H" -i :0.0+$X,$Y ${SOUND} ${FILE}
+
+ln -sf ${FILE} ${RECORDINGS}/latest
+
+set +e
+hash xclip && echo "${FILE}" | xclip -i -selection clipboard

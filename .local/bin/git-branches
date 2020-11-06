@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+current=$(git branch --show-current)
+branches=$(git branch --format "%(refname)")
+
+for branch in ${branches[@]}; do
+    raw_branch="${branch##refs/heads/}"
+
+    decorator="  "
+    if [ "$raw_branch" == "$current" ]; then
+        decorator="* "
+    fi
+
+    description=$(git config branch.$raw_branch.description)
+    if [ -n "$description" ]; then
+        description=": ${description}"
+    fi
+
+    echo "$decorator$raw_branch$description"
+done
