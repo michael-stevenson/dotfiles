@@ -1,0 +1,41 @@
+# The purpose of this file is to contain things that are common
+# to environments of any shell (bash, zsh, etc..)
+
+# Set these again "in case" .. 
+export XDG_DATA_HOME=${HOME}/.local/share
+export XDG_CONFIG_HOME=${HOME}/.local/etc
+export XDG_CACHE_HOME=${HOME}/.local/var
+
+# vim will execute this line of code before
+# even searching for vimrc, so we can change where it looks.
+# see :he VIMINIT for details
+# This alsoworksfor nvim
+export VIMINIT='let $MYVIMRC=expand("$XDG_CONFIG_HOME/vim/vimrc") | source $MYVIMRC'
+
+export DOTDIR=$HOME/.dot
+export CFGDIR=$HOME/.config
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+export XINITRC=${XDG_CONFIG_HOME}/x11/xinitrc
+
+hash nvim || (export EDITOR=vim && export VISUAL=vim)
+hash vim  || (export EDITOR=vi  && export VISUAL=vi)
+
+export PAGER=less
+if hash most 2>/dev/null; then
+  export PAGER=most
+fi
+
+export PATH=$HOME/.local/bin:$PATH
+export MANPATH=$HOME/.local/man:$MANPATH
+export LD_LIBRARY_PATH=$HOME/.local/lib:$HOME/.local/lib64:$LD_LIBRARY_PATH
+
+export MOST_INITFILE=${XDG_CONFIG_HOME}/most/mostrc # man most
+export HTOPRC=${XDG_CONFIG_HOME}/htop/htoprc
+
+for e in $(find ${XDG_CONFIG_HOME}/shell/ -name '*.env' -exec realpath {} + | sort); do
+  source ${e}
+done
+

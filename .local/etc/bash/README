@@ -1,0 +1,5 @@
+Add additional files here named XXX.env or XXX.rc
+and they will automatically be sourced in alphabetical order
+
+However, if your addition is not shell agnostic, consider adding
+it with $XDG_CONFIG_HOME/bash or $XDG_CONFIG_HOME/zsh instead

@@ -1,0 +1,22 @@
+# keep things that are shell agnostic in a single place
+source ${XDG_CONFIG_HOME}/shell/_env
+
+# At this point, only /etc/zshenv should have been executed
+# and we desire to NOT allow any further "system" shell
+# configurations to execute.  Unsetting this options causes
+# this behavior.
+unset GLOBAL_RCS
+
+export PROMPT=$'%{\e[38;2;123;23;23m%}%n%{\e[00m%}@%m[%3~]> '
+#RPROMPT="%{$time_color%}%t %{$reset_color%}"
+
+# In case we're running in a compatibility mode
+typeset -U PATH path
+typeset -U FPATH fpath
+typeset -U MANPATH manpath
+typeset -UT PYTHONPATH pythonpath
+
+for ze in $(find ${XDG_CONFIG_HOME}/zsh/ -name '*.zshenv' -exec realpath {} + | sort); do
+  source ${ze}
+done
+

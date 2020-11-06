@@ -1,0 +1,5 @@
+Add additional files here named XXX.profile
+and they will automatically be sourced in alphabetical order
+
+However, if your addition is not bash specific, consider adding
+it to $XDG_CONFIG_HOME/shell/XXX.rc or XXX.env.

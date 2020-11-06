@@ -1,0 +1,5 @@
+Add additional files here named XXX.zshrc or XXX.zshenv
+and they will automatically be sourced in alphabetical order
+
+However, if your addition is not zsh specific, consider adding
+it to $XDG_CONFIG_HOME/shell/XXX.rc or XXX.env.

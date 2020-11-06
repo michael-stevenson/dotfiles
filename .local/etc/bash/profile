@@ -1,0 +1,7 @@
+# keep things that are shell agnostic in a single place
+source ${XDG_CONFIG_HOME}/shell/_env
+source ${XDG_CONFIG_HOME}/shell/rc
+
+for pr in $(find ${XDG_CONFIG_HOME}/bash/ -name '*.profile' -exec realpath {} + | sort); do
+  source ${pr}
+done

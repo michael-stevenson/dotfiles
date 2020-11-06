@@ -1,0 +1,5 @@
+alias tmux="tmux -f ${XDG_CONFIG_HOME}/tmux/tmux.conf"
+
+for rc in $(find ${XDG_CONFIG_HOME}/shell/ -name '*.rc' -exec realpath {} + | sort); do
+  source ${rc}
+done
