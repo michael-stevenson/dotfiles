@@ -27,7 +27,7 @@ if [ $? != 0 ]; then
 fi
 
 cat <<-EOF
-dotfiles is installe.
+dotfiles is installed.
 You may need to 'source $HOME/.zshenv' to enable it.
 Then, consider adding additional repositories (config add).
 Typing 'config' without a subcommand will show help.
