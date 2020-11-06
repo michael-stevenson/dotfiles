@@ -15,6 +15,23 @@ function list_repos
 	done
 }
 
+function status_repos
+{
+	set +e
+    repos=(${confrepos}/*)
+    if [ -n "$1" ]; then
+        repos=("${confrepos}/$1"); shift
+    fi
+    for repo in ${repos[@]}; do
+        shortname=$(basename $repo)
+        if [ -n "$sep" ]; then
+            echo $sep
+        fi
+        git --git-dir="$repo" --work-tree=$HOME status | awk -v repo="$shortname" '{ printf "%10s | %s\n", repo, $0 }'
+        sep="-----------|"
+    done
+}
+
 function sync_repos
 {
 	set +e
@@ -235,19 +252,19 @@ case $1 in
 		custom $@
 		exit
 		;;
+	"status")
+		shift;
+        status_repos $@
+		exit
+		;;
 esac
 
-repos=(${confrepos}/*)
 
 if [ -d ${confrepos}/$1 ]; then
-	repos=("${confrepos}/$1"); shift
+    repo=("${confrepos}/$1"); shift
+else
+    echo "Need to specify which config repo"
+    exit -1
 fi
 
-sep=""
-for repo in ${repos[@]}; do
-	shortname=$(basename $repo)
-    echo $sep
-	git --git-dir="$repo" --work-tree=$HOME "$@" | awk -v repo="$shortname" '{ printf "%10s | %s\n", repo, $0 }'
-    sep="----------------"
-done
-
+git --git-dir="$repo" --work-tree=$HOME "$@"
