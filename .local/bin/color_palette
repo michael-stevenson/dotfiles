@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+# Display a color palette on TrueColor enabled terminals.
+
+declare -i stride=${1:-16}
+
+fore="38"
+back="48"
+
+#ground=$back
+ground=$fore
+
+for ((r=0; r<256; r+=$stride)); do
+	for ((g=0; g<256; g+=$stride)); do
+		for ((b=0; b<256; b+=$stride)); do
+			printf "\x1b[${ground};2;%d;%d;%dm" $r $g $b
+			printf " %02x%02x%02x " $r $g $b
+			printf '\x1b[0m'
+		done
+	done
+done
+
