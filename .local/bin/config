@@ -15,19 +15,16 @@ function list_repos
 	done
 }
 
-function status_repos
+function all_repos
 {
 	set +e
     repos=(${confrepos}/*)
-    if [ -n "$1" ]; then
-        repos=("${confrepos}/$1"); shift
-    fi
     for repo in ${repos[@]}; do
         shortname=$(basename $repo)
         if [ -n "$sep" ]; then
             echo $sep
         fi
-        git --git-dir="$repo" --work-tree=$HOME status | awk -v repo="$shortname" '{ printf "%10s | %s\n", repo, $0 }'
+        git --git-dir="$repo" --work-tree=$HOME $1 | awk -v repo="$shortname" '{ printf "%10s | %s\n", repo, $0 }'
         sep="-----------|"
     done
 }
@@ -252,9 +249,8 @@ case $1 in
 		custom $@
 		exit
 		;;
-	"status")
-		shift;
-        status_repos $@
+	"status"|"fetch")
+        all_repos $@
 		exit
 		;;
 esac
