@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+path=$(dirname $(realpath $0))
+cd $path
+
+url="$(git remote get-url origin)"
+
+master_dir="${HOME}/.dot/master"
+if [ -d ${master_dir} ]; then
+    echo "${master_dir} already exists"
+    exit
+fi
+
+mkdir -p ${HOME}/.local/{var,bin,etc,man,share}
+
+git clone --bare ${url} ${master_dir}
+
+cd ${HOME}
+git --git-dir=${master_dir} --work-tree=$HOME config status.showUntrackedFiles no
+git --git-dir=${master_dir} --work-tree=$HOME checkout
+
+if [ $? != 0 ]; then
+	# some pre-existing files collided..
+    echo "Some files might have collided, they must be moved"
+    echo "out of the way to try again"
+    exit
+fi
+
+cat <<-EOF
+dotfiles is installe.
+You may need to 'source $HOME/.zshenv' to enable it.
+Then, consider adding additional repositories (config add).
+Typing 'config' without a subcommand will show help.
+EOF
+
+rm -rf ${path}

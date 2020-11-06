@@ -1,6 +1,6 @@
 To install:
 
 ```
-git clone --single-branch {url} dot
-./dot/init
+git clone --single-branch {url} {dir}
+{dir}/install
 ```
