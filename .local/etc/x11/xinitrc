@@ -1,0 +1,9 @@
+xrdb -merge ~/.Xresources
+xset s off
+feh --randomize --bg-fill ${HOME}/.wallpapers/*
+#feh --bg-fill .wallpapers/leaves.png
+compton -b
+xkbcomp ${XDG_CONFIG_HOME}/x11/xkb_keymap $DISPLAY
+xbindkeys
+/usr/bin/polybar --config=${XDG_CONFIG_HOME}/polybar/config -r main
+/usr/bin/i3-gaps
