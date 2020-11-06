@@ -1,0 +1,253 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+confrepos=${CONFREPOS:-$HOME/.dot}
+confdir="${XDG_CONFIG_HOME}/config"
+
+function list_repos
+{
+	for r in $(ls $confrepos); do
+		echo -n "$(basename $r):  "
+		git --git-dir=${confrepos}/$r remote get-url --all origin 2>/dev/null ||
+		git --git-dir=${confrepos}/$r remote -v  | grep fetch
+	done
+}
+
+function sync_repos
+{
+	set +e
+	for r in $(ls $confrepos); do
+		echo ""
+		shortname=$(basename $r)
+		git --git-dir=${confrepos}/$r --work-tree=$HOME pull 2>&1 | awk '{ print "'$shortname' | " $0 }'
+		diverged=$(git --git-dir=${confrepos}/$r --work-tree=$HOME log ^FETCH_HEAD HEAD 2>&1 | wc -l)
+		if [[ $diverged -ne 0 ]]; then
+			git --git-dir=${confrepos}/$r --work-tree=$HOME push origin 2>&1 | awk '{ print "'$shortname' | " $0 }'
+		fi
+	done
+}
+
+function clone_repo
+{
+	if [ $# != 2 ]; then
+		echo "clone requires two arguments"
+		usage
+		exit -1
+	fi
+
+	local uri=$1; shift
+	local name=$1; shift
+
+	local repo_path=${confrepos}/$name;
+	if [ -d ${repo_path} ]; then
+		echo "Already exists"
+		exit -1
+	fi
+
+	git clone --bare $uri $repo_path
+	$0 $name config status.showUntrackedFiles no
+	$0 $name checkout
+	mkdir -p ${HOME}/.config/${name}/hooks
+	$0 $name config --add core.hookspath ${HOME}/.config/${name}/hooks
+}
+
+function init_repo
+{
+	local repo_name=$1; shift
+	local repo_path=${confrepos}/$repo_name
+	if [ -d ${repo_path} ]; then
+		echo "Already exists"
+		exit -1
+	fi
+
+	mkdir -p ${repo_path}
+	git init --bare ${repo_path}
+	$0 $repo_name config status.showUntrackedFiles no
+
+	local cfg_path=$HOME/.config/$repo_name
+	mkdir -p $cfg_path
+	touch ${cfg_path}/vimrc
+	touch ${cfg_path}/zshrc
+	touch ${cfg_path}/tmux.conf
+
+	$0 $repo_name stage $cfg_path
+	$0 $repo_name -c user.name='Auto Generated' -c user.email="$(whoami)@$(hostname -s)" commit -m 'initial; auto-generated commit'
+}
+
+function owner
+{
+	set +e
+
+	for f in $@; do
+		owner=""
+		for r in $(ls $confrepos); do
+			git --git-dir=${confrepos}/$r --work-tree=$HOME ls-files --error-unmatch $f 1>/dev/null 2>/dev/null
+			if [[ $? -eq 0 ]]; then
+				owner="$r"
+				echo "$f is owned by: $r"
+			fi
+		done
+		if [[ -z $owner ]]; then
+			echo "$f is unowned by config"
+		fi
+	done
+}
+
+function want
+{
+    function msg
+    {
+        echo "$@"
+    }
+
+    export -f msg
+
+	for f in $(ls ${confdir}/want/*); do
+        chmod u+x $f
+        $f
+	done
+}
+
+function usage
+{
+	cat <<-EOU
+		config [[repo] <command>]
+
+		  [repo]   : if specified, perform git <command>s
+					 only on the specified repo
+
+		  <command>s:
+
+			"list" : list all repos
+			"sync" : pull and push master for all repos
+			"clone": clone a repo into the config system
+			"init" : create a skeleton repo
+			"owner" : pass a file and be told which of the config repos it is managed by
+			"want" : list software that various usage profiles want
+				   -a  : show the want even if its already satisfied
+			"custom": custom commands
+			"*"    : passed to git
+
+		  examples:
+
+			config list
+			config sync
+			config clone <uri> <name>
+			config init <name>
+			config owner zsh/function/blah
+			config status
+			config want
+			config <repo> log
+	EOU
+}
+
+function custom
+{
+	function die
+	{
+		echo "$@"
+		exit
+	}
+
+	function command_help
+	{
+		case $2 in
+		  "help")
+			die $1
+			;;
+		esac
+	}
+
+	function command_require
+	{
+		for cmd in $@; do
+		  hash ${cmd} || die "missing ${cmd}"
+		done
+	}
+
+	local commands=${confdir}/commands
+	if [ $# -eq 0 ]; then
+		command_array=($(ls -1 ${commands}))
+		for command in ${command_array[@]}; do
+			echo -n "${command}: "
+			export -f command_help
+			export -f command_require
+			export -f die
+			${commands}/${command} help
+		done
+		exit
+	fi
+
+	if ! ls ${commands}/$1 1>/dev/null 2>/dev/null; then
+		echo "Invalid subcommand"
+		exit
+	fi
+
+	local command="${1}"
+	shift
+	export -f command_help
+	export -f command_require
+	export -f die
+	chmod u+x ${commands}/${command}
+	${commands}/${command} $@
+}
+
+if [ $# -eq 0 ]; then
+	usage
+	exit
+fi
+
+case $1 in
+	"list")
+		shift;
+		list_repos
+		exit
+		;;
+	"sync")
+		shift;
+		sync_repos
+		exit
+		;;
+	"clone")
+		shift;
+		clone_repo $@
+		exit
+		;;
+	"init")
+		shift;
+		init_repo $@
+		exit
+		;;
+	"owner")
+		shift;
+		owner $@
+		exit
+		;;
+	"want")
+		shift;
+		want $@
+		exit
+		;;
+	"custom")
+		shift;
+		custom $@
+		exit
+		;;
+esac
+
+repos=(${confrepos}/*)
+
+if [ -d ${confrepos}/$1 ]; then
+	repos=("${confrepos}/$1"); shift
+fi
+
+sep=""
+for repo in ${repos[@]}; do
+	shortname=$(basename $repo)
+    echo $sep
+	git --git-dir="$repo" --work-tree=$HOME "$@" | awk -v repo="$shortname" '{ printf "%10s | %s\n", repo, $0 }'
+    sep="----------------"
+done
+
