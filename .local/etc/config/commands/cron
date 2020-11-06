@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-command_help "Add crontab entry to run $CFGDIR/cron scripts" $@
+command_help "Add crontab entry to run $XDG_CONFIG_HOME/cron scripts" $@
 command_require crontab
 
 set -e
@@ -8,16 +8,23 @@ set -e
 tmp_crontab=$(mktemp)
 trap "rm $tmp_crontab" EXIT
 
+mkdir -p $XDG_CONFIG_HOME/cron/quarter-hourly
+mkdir -p $XDG_CONFIG_HOME/cron/half-hourly
+mkdir -p $XDG_CONFIG_HOME/cron/hourly
+mkdir -p $XDG_CONFIG_HOME/cron/daily
+mkdir -p $XDG_CONFIG_HOME/cron/weekly
+mkdir -p $XDG_CONFIG_HOME/cron/monthly
+
 crontab -l 2>&1 >$tmp_crontab || true
 cat <<-EOC >>$tmp_crontab
 	# minute hour <day o month> month <day of week, 0 or 7 is Sun>
 	# automatically added by $0
-	0,15,30,45 * * * * run-parts $CFGDIR/cron/quarter_hourly
-	0,30 * * * * run-parts $CFGDIR/cron/half_hourly
-	0 * * * * run-parts $CFGDIR/cron/hourly
-	0 0 * * * run-parts $CFGDIR/cron/daily
-	5 0 * * 0 run-parts $CFGDIR/cron/weekly
-	10 0 1 * * run-parts $CFGDIR/cron/monthly
+	0,15,30,45 * * * * run-parts $XDG_CONFIG_HOME/cron/quarter-hourly
+	0,30 * * * * run-parts $XDG_CONFIG_HOME/cron/half-hourly
+	0 * * * * run-parts $XDG_CONFIG_HOME/cron/hourly
+	0 0 * * * run-parts $XDG_CONFIG_HOME/cron/daily
+	5 0 * * 0 run-parts $XDG_CONFIG_HOME/cron/weekly
+	10 0 1 * * run-parts $XDG_CONFIG_HOME/cron/monthly
 EOC
 
 cat $tmp_crontab | crontab -
