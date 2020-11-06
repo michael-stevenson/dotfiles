@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+command_help "Install mailx; terminal mail client" $@
+command_require git make install
+set -e
+
+d=$(mktemp -d)
+cd $d
+git clone https://github.com/scallywag/mailx
+cd mailx
+make
+install mailx $HOME/.local/bin
+

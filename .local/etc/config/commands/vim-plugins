@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+command_help "Install vim-plugins" $@
+command_require git
+
+base=${HOME}/.local/share/vim/bundle
+
+declare -a plugins=(
+ 	git://github.com/vim-scripts/bufexplorer.zip
+	git://github.com/tpope/vim-pathogen
+	git://github.com/vim-scripts/showmarks2.git
+	git://github.com/vim-scripts/vim-signature.git
+	git://github.com/vim-scripts/stlrefvim.git
+	git://github.com/majutsushi/tagbar.git
+	git://github.com/vim-scripts/taglist.vim.git
+	git://github.com/vim-scripts/vim-signify.git
+)
+
+for uri in ${plugins[@]}; do
+	echo "Installing VIM plugin: $(basename $uri)"
+	dir="${base}/$(basename $uri)"
+	if [[ ! -d ${dir} ]]; then
+		git clone -q $uri $dir
+	fi
+done
+
+mkdir -p ${HOME}/.local/etc/vim/autoload
+ln -sf ${base}/vim-pathogen/autoload/pathogen.vim ${HOME}/.local/etc/vim/autoload/pathogen.vim

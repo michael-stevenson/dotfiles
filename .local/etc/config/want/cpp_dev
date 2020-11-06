@@ -1,0 +1,3 @@
+hash clangd || msg missing clangd
+hash g++ || msg missing g++
+hash cmake || msg missing cmake

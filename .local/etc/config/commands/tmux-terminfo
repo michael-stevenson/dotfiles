@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+command_help "Install TMUX terminfo" $@
+command_require tic
+set -e
+
+tic $CFGDIR/tmux/tmux18-256color.ti

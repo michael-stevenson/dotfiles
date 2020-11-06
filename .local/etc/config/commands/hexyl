@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+command_help "Install hexyl; a terminal hex viewre" $@
+command_require cargo
+set -e
+cargo install --root $HOME/.local hexyl

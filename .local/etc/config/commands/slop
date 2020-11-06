@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+command_help "Install slop (a X11 screen selection utility)" $@
+command_require git make cmake
+set -e
+
+pushd $(mktemp -d)
+git clone git://github.com/naelstrof/slop.git
+cd slop
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local/ -DCMAKE_INSTALL_RPATH=$HOME/.local/lib64 ./
+make && make install

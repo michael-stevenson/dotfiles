@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+command_help "Install taskwarrior" $@
+command_require curl tar cmake make
+set -e
+
+d=$(mktemp -d)
+cd $d
+
+curl -O https://taskwarrior.org/download/task-2.5.1.tar.gz
+tar xvzf task-2.5.1.tar.gz
+cd task-2.5.1
+
+cmake -DENABLE_SYNC=OFF -DCMAKE_BUILD_TYPE=release -DCMAKE_INSTALL_PREFIX=$HOME/.local .
+make
+make install

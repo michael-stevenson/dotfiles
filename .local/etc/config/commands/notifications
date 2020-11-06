@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# install everything necessary to get a functioning notification
+# system up and running (assumes dbus)
+command_help "install everything necessary to get a functioning notification
+  system up and running (assumes dbus)" $@
+command_require dbus-daemon gtkdocize autoreconf make libtool git
+set -e
+
+d=$(mktemp -d)
+cd $d
+
+git clone https://github.com/mgorny/libtinynotify
+pushd libtinynotify 
+gtkdocize
+autoreconf -f -i
+./configure --prefix=$HOME/.local
+make -j4 install
+libtool --finish $HOME/.local/lib
+popd
+
+git clone https://github.com/mortbauer/tinynotify-send
+pushd tinynotify-send
+autoreconf -f -i
+./configure --prefix=$HOME/.local
+make -j4 install
+popd
+
+ln -s $HOME/.local/bin/tinynotify-send $HOME/.local/bin/notify
+
+git clone http://github.com/dunst-project/dunst
+pushd dunst
+export PREFIX="$HOME/opt"
+export SYSTEMD=0
+export SERVICEDIR_DBUS="$HOME/opt/dbus"
+make
+make install
+popd

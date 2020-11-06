@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+command_help "Add crontab entry to run $CFGDIR/cron scripts" $@
+command_require crontab
+
+set -e
+
+tmp_crontab=$(mktemp)
+trap "rm $tmp_crontab" EXIT
+
+crontab -l 2>&1 >$tmp_crontab || true
+cat <<-EOC >>$tmp_crontab
+	# minute hour <day o month> month <day of week, 0 or 7 is Sun>
+	# automatically added by $0
+	0,15,30,45 * * * * run-parts $CFGDIR/cron/quarter_hourly
+	0,30 * * * * run-parts $CFGDIR/cron/half_hourly
+	0 * * * * run-parts $CFGDIR/cron/hourly
+	0 0 * * * run-parts $CFGDIR/cron/daily
+	5 0 * * 0 run-parts $CFGDIR/cron/weekly
+	10 0 1 * * run-parts $CFGDIR/cron/monthly
+EOC
+
+cat $tmp_crontab | crontab -

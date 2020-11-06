@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+command_help "Install livedown; a live markdown previewer (disabled)" $@
+command_require npm
+set -e
+
+# disabled for now until I care enough or just delete it,
+# don't want it install globally, for sure..
+#npm install -g livedown

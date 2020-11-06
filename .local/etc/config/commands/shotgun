@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+command_help "Install shotgun; an X11 screenshot utility" $@
+command_require cargo
+set -e
+cargo install --root $HOME/.local shotgun

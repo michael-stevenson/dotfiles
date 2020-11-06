@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+command_help "(not ready)" $@
+command_require git
+set -e
+
+repo="https://github.com/michael-stevenson/pb_vu-meter.git"
+target="$CFGDIR/polybar/vu-meter"
+mkdir -p "$target" || true
+git clone "${repo}" "${target}"
+
+repo="https://github.com/Valodim/python-pulseaudio.git"
+tmpdir=$(mktemp -d)
+git clone "${repo}" "${tmpdir}"
+mv "${tmpdir}/pulseaudio" "${target}/"
+
+cat <<-EOF >> $CFGDIR/polybar/local
+##
+# pulse-audio vu-meter has been installed.
+# modules for such can be created with (e.g.):
+# [module/vu]
+# type = custom/script
+# tail = true
+# exec = $CFGDIR/polybar/vu-meter/vu.py
+##
+EOF

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+command_help "(not ready)" $@
+command_require curl
+set -e
+
+repo="https://github.com/marioortizmanero/polybar-pulseaudio-control.git"
+target="$CFGDIR/polybar/pulseaudio-control"
+
+set -e
+
+mkdir -p "$target"
+git clone "${repo}" "${target}"
+
+

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+command_help "Install cppbang interpreter" $@
+command_require git 
+
+set -e
+dir=$(mktemp -d)
+git clone -q git://github.com/michael-stevenson/cppbang $dir
+cp $dir/cppbang.sh $HOME/.local/bin/cppbang
+chmod u+x $HOME/.local/bin/cppbang

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+command_help "Install manpages for C++ std library" $@
+command_require git configure make
+
+dir=$(mktemp -d)
+git clone -q https://github.com/jeaye/stdman.git $dir
+pushd $dir 2>/dev/null 1>/dev/null
+./configure --mandir=$HOME/.local/man 2>/dev/null
+make install 2>/dev/null 1>/dev/null
+
+echo "export MANPATH=$HOME/.local/man:$MANPATH" >> $HOME/.local/etc/zshenv
+echo 'source $HOME/.local/etc/zshenv to activate'

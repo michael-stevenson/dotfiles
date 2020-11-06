@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+command_help "Install python provider(s) for NEOVIM (allowing execution of python within functions and such)" $@
+command_require pip
+set -e
+python -m pip install --user --upgrade pynvim

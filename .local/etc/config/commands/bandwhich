@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+command_help "Install bandwhich; a terminal bandwidth utilization tool" $@
+command_require cargo
+set -e
+cargo install --root $HOME/.local bandwhich

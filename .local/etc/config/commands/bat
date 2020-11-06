@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+command_help "Install BAT (a cat altaernative)" $@
+command_require wget tar
+set -e
+
+d=$(mktemp -d)
+cd $d
+
+wget https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-v0.9.0-x86_64-unknown-linux-musl.tar.gz
+tar xvzf bat-v0.9.0-x86_64-unknown-linux-musl.tar.gz
+cd bat-v0.9.0-x86_64-unknown-linux-musl
+install bat $HOME/.local/bin

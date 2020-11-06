@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+command_help "Install rust" $@
+command_require curl
+set -e
+
+dir=$(mktemp -d)
+cd $dir
+
+export RUSTUP_HOME=$HOME/.local/var
+export CARGO_HOME=$HOME/.local
+
+curl -sSf https://sh.rustup.rs -o rustup.sh
+chmod u+x ./rustup.sh
+./rustup.sh -y --no-modify-path

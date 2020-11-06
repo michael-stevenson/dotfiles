@@ -1,0 +1,3 @@
+hash dunst || msg missing dunst -- for notifications
+hash i3 || msg missing i3
+hash xkbcomp || msg missing xkbcomp

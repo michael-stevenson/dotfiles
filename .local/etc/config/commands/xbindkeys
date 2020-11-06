@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+command_help "Install xbindkeys" $@
+command_require git make
+set -e
+
+pushd $(mktemp -d)
+git clone git://git.savannah.nongnu.org/xbindkeys.git
+cd xbindkeys
+./configure --prefix="$HOME/.local" --disable-guile
+make && make install

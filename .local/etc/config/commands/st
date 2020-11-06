@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+command_help "Install Suckless terminal" $@
+command_require git make
+
+d="$(mktemp -d)"
+pushd $d >/dev/null
+
+git clone git://github.com/LukeSmithxyz/st
+cd st
+
+cat <<-EOF
+  Modify the ST config as desired..
+
+  To find a font you would like to use you can do something
+  like:
+    fc-list | less
+
+    and then
+
+    fc-match "some string" to attempt to find how to specify it
+
+    e.g. fc-match "Inconsolata"
+
+    using the resulting output to construct a font string for
+    the config:
+
+    e.g. "Inconsolata:pixelsize=25:antialias=true:autohint=true"
+
+    Hit enter to begin modifications; after that, save and exit to continue install..
+EOF
+
+read
+$EDITOR config.h
+
+make
+make PREFIX=$HOME/.local install
+
+echo "Available as $HOME/.local/bin/st"

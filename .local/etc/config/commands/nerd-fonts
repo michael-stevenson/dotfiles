@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+command_help "Install nerd-fonts" $@
+command_require curl fc-cache
+
+set -e
+
+fontdir=$HOME/.local/share/fonts
+mkdir -p $fontdir
+cd $fontdir
+
+uri='https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0'
+
+declare -a fonts
+fonts+=(Regular)
+
+for font in ${fonts[@]}
+do
+	echo "Getting ${font}"
+	curl -sSLkO "${uri}/${font}.zip"
+	unzip -o ${font}.zip
+	unlink ${font}.zip
+done
+
+fc-cache -fv ${fontdir}

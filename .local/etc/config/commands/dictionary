@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+command_help "Install stardict format dictionaries for use with 'sdcv'" $@
+command_require sdcv
+
+set -e
+mkdir -p $HOME/.local/share/dictionaries
+tar xjf $CFGDIR/dict/english.tar.bz2 -C $HOME/.local/share/dictionaries
+
+cat <<-EOF >> $HOME/.local/etc/zshenv
+alias define='sdcv -n --data-dir $HOME/.local/share/dictionaries'
+EOF
+
+cat <<-EOF
+New command: define {word}
+source $HOME/.local/etc/zshenv to activate
+EOF
