@@ -1,0 +1,135 @@
+" general all-of-the-time settings
+"###################################
+" you can debug VIM's loading process by running 'vim -D [--noplugin]'
+
+" turn off vi compatability - enables lots of cool things
+set nocompatible
+
+" thanks to http://tlvince.com/vim-respect-xdg
+set directory=$XDG_CACHE_HOME/vim,/tmp
+set backupdir=$XDG_CACHE_HOME/vim/backup,/tmp
+set undodir=$XDG_CACHE_HOME/vim/undo,/tmp
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+
+if empty(glob('$XDG_CONFIG_HOME/vim/autoload/plug.vim'))
+    silent !curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" If you add a new plugin, you must reload .vimrc and call :PlugInstall
+call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
+    Plug 'git://github.com/vim-scripts/bufexplorer.zip'
+    Plug 'git://github.com/vim-scripts/stlrefvim.git'
+    Plug 'git://github.com/majutsushi/tagbar.git'
+    Plug 'git://github.com/vim-scripts/taglist.vim.git'
+    Plug 'git://github.com/vim-scripts/vim-signature.git'
+    Plug 'git://github.com/vim-scripts/vim-signify.git'
+    Plug 'git://github.com/vim-scripts/showmarks2.git'
+    Plug 'git://github.com/SirVer/ultisnips.git'
+
+    if has('nvim')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    else
+        Plug 'Shougo/deoplete.nvim'
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endi
+
+call plug#end()
+
+filetype plugin indent on
+
+set t_8f=[38;2;%lu;%lu;%lum
+set t_8b=[48;2;%lu;%lu;%lum
+
+" colors
+colo desert_modified
+"colo 256_xoria
+
+" code completion formation
+set completeopt=menu,preview
+set pumheight=10
+
+" show the cursor position in the bottom right
+set ruler
+
+" turn off visual line wrapping
+set nowrap
+
+" turn on highlighted searches
+set hlsearch
+
+" Some reasonable defaults
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" trying this out. I cant remember the last time that I
+" actually needed to recover from a crashed session. 
+" Probably, I'll end up reverting this right after I get
+" burned ;)  screw-you future me..
+set noswapfile
+
+" show the line numbers
+set relativenumber number
+
+" can't think of a reason to make this 
+" language specific..
+set smartindent
+
+" to see what's going on with spaces vs tabs
+set listchars=tab:->,trail:$
+
+" now that we have airline, turn on the status
+" bar all of the time..
+set laststatus=2
+
+" full path in statusline
+set statusline=%F
+
+" set mapleader to a space
+let g:mapleader=' '
+
+" do filetype detection
+filetype on
+
+" enable filetype specific plugins
+filetype plugin on
+
+" Support for true colors in the terminal
+" Bye-bye gvim.
+if has("termguicolors")
+	set termguicolors
+endif
+
+" Load some functions which are always useful
+" This must come before we source the keybindings
+" because they map some functions defined here
+runtime functions.vim
+
+" source our keybindings
+runtime key_maps.vim
+
+" Protect autocommand definitions so that they
+" only get loaded once (:he autocmd).
+" set verbose=9 " uncomment to test autocommands
+if !exists("autocommands_loaded")
+	let autocommands_loaded = 1
+	runtime autocommands.vim
+endif
+
+" make it such that <leader>K will open a manpage
+" for the word under the cursor
+runtime! ftplugin/man.vim
+
+" Source anything in the home directory that ends in .vimrc,
+" this allows customization by further, more specific, config
+" repositories
+let rcs = glob("$XDG_CONFIG_HOME/vim/rc/*.vimrc", 0, 1)
+for rc in rcs
+	exe "source" fnameescape(rc)
+endfor
+
+" allow directory specific .vimrc files
+set exrc
+set secure
