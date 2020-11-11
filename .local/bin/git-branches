@@ -1,20 +1,39 @@
 #!/usr/bin/env bash
 
 current=$(git branch --show-current)
+
+function list_branch_colored
+{
+    if [ "$1" == "$current" ]; then
+        printf "\033[38;5;32m%+30s | %45s \033[0m\n" "$1" "$2"
+    else
+        printf "%+30s | %45s\n" "$1" "$2"
+    fi
+}
+
+function list_branch_decorated
+{
+    if [ "$1" == "$current" ]; then
+        printf "* %-30s | %45s\n" "$1" "$2"
+    else
+        printf " %-30s | %45s\n" "$1" "$2"
+    fi
+}
+
+function list_branch
+{
+    ncolors=$(tput colors)
+    if test -n "$ncolors" && test $ncolors -ge 8; then
+        list_branch_colored "$1" "$2"
+    else
+        list_branch_decoreated "$1" "$2"
+    fi
+}
+
 branches=$(git branch --format "%(refname)")
-
 for branch in ${branches[@]}; do
+    color=""
     raw_branch="${branch##refs/heads/}"
-
-    decorator="  "
-    if [ "$raw_branch" == "$current" ]; then
-        decorator="* "
-    fi
-
     description=$(git config branch.$raw_branch.description)
-    if [ -n "$description" ]; then
-        description=": ${description}"
-    fi
-
-    echo "$decorator$raw_branch$description"
+    list_branch "$raw_branch" "$description"
 done

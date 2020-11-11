@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+path=$(git rev-parse --top-level)
+git --git-dir=${path} --work-tree=$HOME config status.showUntrackedFiles no
+git --git-dir=${path} --work-tree=$HOME checkout
