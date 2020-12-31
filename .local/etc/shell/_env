@@ -20,8 +20,19 @@ export VISUAL=nvim
 
 export XINITRC=${XDG_CONFIG_HOME}/x11/xinitrc
 
-hash nvim || (export EDITOR=vim && export VISUAL=vim)
-hash vim  || (export EDITOR=vi  && export VISUAL=vi)
+if hash nvim; then
+    export EDITOR=nvim
+    export VISUAL=nvim
+    alias vim=nvim
+    alias vi=nvim
+elif hash vim; then
+    export EDITOR=vim
+    export VISUAL=vim
+    alias vi=vim
+elif hash vi; then
+    export EDITOR=vi
+    export VISUAL=vi
+fi
 
 export PAGER=less
 if hash most 2>/dev/null; then
