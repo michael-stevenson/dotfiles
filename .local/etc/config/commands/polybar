@@ -8,7 +8,7 @@ cd $d
 
 git clone git://github.com/polybar/polybar
 cd polybar
-git checkout 3.3.1
+git checkout 3.5.3
 git submodule init
 git submodule update
 mkdir build
