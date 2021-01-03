@@ -1,4 +1,4 @@
-hash zsh || msg missing zsh
-hash htop || msg missing htop
-hash tmux || msg missing tmux
-hash s-nail || msg missing s-nail, a mailx like mail agent
+want zsh
+want htop
+want tmux
+want s-nail

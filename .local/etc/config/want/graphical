@@ -1,3 +1,6 @@
-hash dunst || msg missing dunst -- for notifications
-hash i3 || msg missing i3
-hash xkbcomp || msg missing xkbcomp
+want dunst
+want i3-gaps i3
+want xkbcomp
+want xbindkeys
+want picom compton
+want feh

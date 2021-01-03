@@ -109,14 +109,27 @@ function owner
 	done
 }
 
-function want
+function cwant
 {
     function msg
     {
         echo "$@"
     }
 
+    function want
+    {
+        found=0
+        for w in "$@"; do
+            hash "$w" 2>/dev/null && found=1
+        done
+
+        if [ $found -eq 0 ]; then
+            msg "missing $@"
+        fi
+    }
+
     export -f msg
+    export -f want
 
 	for f in $(ls ${confdir}/want/*); do
         chmod u+x $f
@@ -241,7 +254,7 @@ case $1 in
 		;;
 	"want")
 		shift;
-		want $@
+		cwant $@
 		exit
 		;;
 	"custom")

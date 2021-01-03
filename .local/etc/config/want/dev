@@ -1,4 +1,4 @@
-hash nvim || msg missing nvim
+want nvim
 
 #neovim python module
 python -c 'import pynvim' || msg missing pynvim, the neovim python provider, see: config custom python-neovim
