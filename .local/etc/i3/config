@@ -168,4 +168,5 @@ bindsym $mod+s exec "/usr/sbin/s2ram"
 client.focused #cc7b43 #cc7b43 #cc7b43
 client.unfocused #ecdaac #ecdaac #ecdaac
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch.sh
+exec gentoo-pipewire-launcher &
