@@ -1234,9 +1234,9 @@ xkb_symbols "pc+us+inet(evdev)" {
     };
     key <LALT> {         [           Alt_L,          Meta_L ] };
     key <SPCE> {
-			  type= "PC_ALT_LEVEL2",
-				symbols[Group1]= [           space,          F12 ]
-		};
+        type= "PC_ALT_LEVEL2",
+        symbols[Group1]= [           space,          p ]
+    };
     key <CAPS> {         [       Caps_Lock ] };
     key <FK01> {
         type= "CTRL+ALT",
